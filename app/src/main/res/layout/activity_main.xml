@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    tools:context=".MainActivity">
+
+
+    <Spinner
+        android:id="@+id/spinner_marka"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/notification_large_icon_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#EEEEEE"
+        android:spinnerMode="dialog"
+        android:textSize="25dp" />
+
+    <Spinner
+        android:id="@+id/spinner_model"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/notification_large_icon_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spinner_marka"
+        android:layout_marginBottom="5dp"
+        android:background="#EEEEEE"
+        android:spinnerMode="dialog"
+        android:textSize="25dp" />
+
+    <Spinner
+        android:id="@+id/spinner_car"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/notification_large_icon_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/spinner_model"
+        android:background="#EEEEEE"
+        android:spinnerMode="dialog"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="ПОДБОР АМОРТИЗАТОРОВ ПО КАТАЛОГУ"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <Button
+        android:id="@+id/btn_search_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/spinner_car"
+        android:layout_marginTop="44dp"
+        android:text="Search"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <include layout="@layout/activity_search"/>
+
+</RelativeLayout>
