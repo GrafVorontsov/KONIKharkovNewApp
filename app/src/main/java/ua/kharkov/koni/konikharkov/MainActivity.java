@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import com.android.volley.Request;
@@ -25,8 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends SearchActivity{
-
+public class MainActivity extends SearchMenuActivity{
+/*
     //Declaring an Spinner
     private Spinner spinner_marka;
     private Spinner spinner_model;
@@ -35,58 +34,57 @@ public class MainActivity extends SearchActivity{
     //An ArrayList for Spinner Items
     private ArrayList<String> markas;
     private ArrayList<String> models;
-    private ArrayList<String> cars;
+    private ArrayList<String> cars;*/
 
     //JSON Arrays
     private JSONArray result_marka;
     private JSONArray result_model;
     private JSONArray result_cars;
 
-    ArrayAdapter<String> markaAdapter;
-    ArrayAdapter<String> modelAdapter;
-    ArrayAdapter<String> carAdapter;
-    List<String> list_id = new ArrayList<String>();
-    String allTypesIds;
-    String id;
-    String selected;
+    private ArrayAdapter<String> markaAdapter;
+    private ArrayAdapter<String> modelAdapter;
+    private ArrayAdapter<String> carAdapter;
+    private List<String> list_id = new ArrayList<String>();
+    private String allTypesIds;
+    private String id;
+    private String selected;
 
     private List<Amortizator> amortizators;
-    String whatFor;
+    private String whatFor;
 
-    Button btnSearch;
-
+    @Override
+    protected void onQuerySubmit(String query){
+        if(!query.isEmpty()){
+            Intent intent = new Intent(this, SearchActivity.class);
+            intent.putExtra(SearchActivity.QUERY_DATA, query);
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSearch = (Button) findViewById(R.id.btn_search_x);
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-
         amortizators = new ArrayList<>();
 
-        markas = new ArrayList<>();
-        models = new ArrayList<>();
-        cars = new ArrayList<>();
+        final List<String> markas = new ArrayList<>();
+        final List<String> models = new ArrayList<>();
+        final List<String> cars = new ArrayList<>();
 
         markaAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, markas);
 
         modelAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, models);
-        modelAdapter.notifyDataSetChanged();
+        //modelAdapter.notifyDataSetChanged();
+        modelAdapter.setNotifyOnChange(true);
 
         carAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, cars);
-        carAdapter.notifyDataSetChanged();
+        //carAdapter.notifyDataSetChanged();
+        carAdapter.setNotifyOnChange(true);
 
         //спиннер для марок
-        spinner_marka = (Spinner) findViewById(R.id.spinner_marka);
-
+        final Spinner spinner_marka = (Spinner) findViewById(R.id.spinner_marka);
+        spinner_marka.setAdapter(markaAdapter);
         spinner_marka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -105,8 +103,8 @@ public class MainActivity extends SearchActivity{
         });
 
         //синнер для моделей
-        spinner_model = (Spinner) findViewById(R.id.spinner_model);
-
+        final Spinner spinner_model = (Spinner) findViewById(R.id.spinner_model);
+        spinner_model.setAdapter(modelAdapter);
         spinner_model.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -126,8 +124,8 @@ public class MainActivity extends SearchActivity{
         });
 
         //спиннер для автомобилей
-        spinner_car = (Spinner) findViewById(R.id.spinner_car);
-
+        final Spinner spinner_car = (Spinner) findViewById(R.id.spinner_car);
+        spinner_car.setAdapter(carAdapter);
         spinner_car.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //
             @Override
@@ -188,11 +186,8 @@ public class MainActivity extends SearchActivity{
                     }
                 });
 
-        //RequestQueue requestQueue = Volley.newRequestQueue(this);
         RequestQueue queue = Singleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        //adding the string request to request queue
         Singleton.getInstance(this).addToRequestQueue(stringRequest);
-        //requestQueue.add(stringRequest);
     }
 
     private void getConnectionForAmortizators(String URL, String ids){
@@ -231,11 +226,8 @@ public class MainActivity extends SearchActivity{
             }
         };
 
-        //RequestQueue requestQueue = Volley.newRequestQueue(this);
         RequestQueue queue = Singleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        //adding the string request to request queue
         Singleton.getInstance(this).addToRequestQueue(stringRequest);
-        //requestQueue.add(stringRequest);
     }
 
     //получаем данные для спиннеров
@@ -244,34 +236,34 @@ public class MainActivity extends SearchActivity{
 
         try {
             switch (what) {
-                case "marka":   markas.add("Выберите марку");
+                case "marka":   markaAdapter.add(getString(R.string.get_brand));
                     for (int i = 0; i < numberOfItems; i++) {
                         JSONObject json = j.getJSONObject(i);
-                        markas.add(json.getString(Config.MARKA_NAME));
+                        markaAdapter.add(json.getString(Config.MARKA_NAME));
                     }
-                    spinner_marka.setAdapter(markaAdapter);
+                    //spinner_marka.setAdapter(markaAdapter);
                     break;
 
-                case "model":   models.add("Выберите модель");
+                case "model":   modelAdapter.add(getString(R.string.get_model));
                     for (int i = 0; i < numberOfItems; i++) {
                         JSONObject json = j.getJSONObject(i);
-                        models.add(json.getString(Config.MODEL_NAME));
+                        modelAdapter.add(json.getString(Config.MODEL_NAME));
                     }
-                    spinner_model.setAdapter(modelAdapter);
+                    //spinner_model.setAdapter(modelAdapter);
                     break;
 
-                case "cars":    cars.add("Выберите авто");
-                    cars.add("All types");
+                case "cars":    carAdapter.add(getString(R.string.get_auto));
+                    carAdapter.add("All types");
                     for (int i = 0; i < numberOfItems; i++) {
                         JSONObject json = j.getJSONObject(i);
-                        cars.add(json.getString(Config.CAR_NAME));
+                        carAdapter.add(json.getString(Config.CAR_NAME));
                         list_id.add(json.getString(Config.CAR_ID));//для All types
                     }
 
                     //записываем все ID для SQL запроса IN
                     allTypesIds = TextUtils.join(", ", list_id);
 
-                    spinner_car.setAdapter(carAdapter);
+                    //spinner_car.setAdapter(carAdapter);
                     break;
 
             }
@@ -336,8 +328,8 @@ public class MainActivity extends SearchActivity{
                 amortizators.add(amortizator);
             }
 
-            Intent intent = new Intent(MainActivity.this, SpinnerResult.class);
-            intent.putExtra("AMORTIZATORS_LIST", (Serializable) amortizators);
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra(SearchActivity.LIST_OF_AMORTIZATORS, (Serializable) amortizators);
             startActivity(intent);
 
         } catch (JSONException e) {
@@ -361,7 +353,7 @@ public class MainActivity extends SearchActivity{
                         JSONObject json_car = result_cars.getJSONObject(position - 2);
                         id = json_car.getString(Config.CAR_ID);
                     }catch (JSONException ls){
-                        if (selected.equals("Выберите авто")){
+                        if (selected.equals(getString(R.string.get_auto))){
                             //никаких действий
                         }else if (selected.equals("All types")){id = allTypesIds;}
                     }
@@ -373,11 +365,4 @@ public class MainActivity extends SearchActivity{
 
         return id;
     }
-
-/*
-    @Override
-    protected SearchView getSearchView() {
-        return super.searchView;
-    }
-    */
 }

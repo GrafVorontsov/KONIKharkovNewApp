@@ -1,16 +1,9 @@
 package ua.kharkov.koni.konikharkov;
 
-import android.app.SearchManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,60 +21,47 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends SearchMenuActivity {
 
+    public static final String QUERY_DATA = "ua.kharkov.koni.konikharkov.searchActivity.query_data";
+    public static final String LIST_OF_AMORTIZATORS = "ua.kharkov.koni.konikharkov.searchActivity.list_of_amortizators";
+
+    private ProgressBar progressBar;
     private List<Amortizator> amortizators;
-    public RecyclerView recyclerView;
-    public GridLayoutManager gridLayout;
-    public AmortizatorsAdapter adapter;
-    SearchView searchView;
+    private AmortizatorsAdapter adapter;
+
+    protected void onQuerySubmit(final String query){
+        getData(query);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-        amortizators = new ArrayList<>();
-        gridLayout = new GridLayoutManager(this, 1);  //(объект, количество колонок)
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        GridLayoutManager gridLayout = new GridLayoutManager(this, 1);  //(объект, количество колонок)
         recyclerView.setLayoutManager(gridLayout);
 
-    }
+        amortizators = new ArrayList<>();
+        @SuppressWarnings("unchecked")
+        List<Amortizator> listOfAmortizators = (List<Amortizator>) getIntent().getSerializableExtra(LIST_OF_AMORTIZATORS);
+        if(listOfAmortizators != null){
+            amortizators.addAll(listOfAmortizators);
+        }
+        adapter = new AmortizatorsAdapter(this, amortizators);
+        recyclerView.setAdapter(adapter);
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_search, menu);
-
-        MenuItem item = menu.findItem(R.id.menu_search);
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) item.getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(
-                new ComponentName(this, SearchActivity.class)));
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                getData(query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                getData(newText);
-                return true;
-            }
-        });
-
-        return super.onCreateOptionsMenu(menu);
+        String query = (String) getIntent().getSerializableExtra(QUERY_DATA);
+        if(query != null && !query.isEmpty()){
+            onQuerySubmit(query);
+            return;
+        }
     }
 
     public void getData(String newText) {
-
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         //формируем url для запроса
         String url = Config.SEARCH_URL + newText;
         //making the progressbar visible
@@ -93,8 +73,9 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         //hiding the progressbar after completion
-                        progressBar.setVisibility(View.INVISIBLE);
+                        progressBar.setVisibility(View.GONE);
                         amortizators.clear(); //очистка списка найденных амортизаторов перед каждым поиском
+                        adapter.notifyDataSetChanged();
                         showJSON(response);
 
                     }
@@ -108,12 +89,8 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 });
 
-        //creating a request queue
-        //RequestQueue requestQueue = Volley.newRequestQueue(this);
         RequestQueue queue = Singleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        //adding the string request to request queue
         Singleton.getInstance(this).addToRequestQueue(stringRequest);
-        //requestQueue.add(stringRequest);
     }
 
     private void showJSON(String response) {
@@ -179,18 +156,10 @@ public class SearchActivity extends AppCompatActivity {
             }
 
             //creating custom adapter object
-            adapter = new AmortizatorsAdapter(this, amortizators);
-            recyclerView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
-
-    protected SearchView getSearchView()
-    {
-        return searchView;
-    }
-
 }

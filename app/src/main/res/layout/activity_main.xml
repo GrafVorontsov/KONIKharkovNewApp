@@ -7,7 +7,19 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp"
     tools:context=".MainActivity">
-
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/selection_of_absorbers"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
 
     <Spinner
         android:id="@+id/spinner_marka"
@@ -44,39 +56,4 @@
         android:background="#EEEEEE"
         android:spinnerMode="dialog"
         android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="ПОДБОР АМОРТИЗАТОРОВ ПО КАТАЛОГУ"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="30sp" />
-    <ProgressBar
-        android:visibility="gone"
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
-    <Button
-        android:id="@+id/btn_search_x"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinner_car"
-        android:layout_marginTop="44dp"
-        android:text="Search"
-        android:textColor="@color/colorPrimaryDark" />
-
-    <include layout="@layout/activity_search"/>
-
 </RelativeLayout>

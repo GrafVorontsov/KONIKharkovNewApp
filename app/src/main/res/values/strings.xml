@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">KONI Kharkov</string>
+    <string name="search_view_hint">Enter query...</string>
+    <string name="get_brand">Select brand</string>
+    <string name="get_model">Select model</string>
+    <string name="get_auto">Select auto</string>
+    <string name="selection_of_absorbers">SELECTION OF ABSORBERS IN THE CATALOG</string>
 </resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="search_view_hint">Введите запрос...</string>
+    <string name="get_brand">Выберите марку</string>
+    <string name="get_model">Выберите модель</string>
+    <string name="get_auto">Выберите авто</string>
+    <string name="selection_of_absorbers">ПОДБОР АМОРТИЗАТОРОВ ПО КАТАЛОГУ</string>
+</resources>
