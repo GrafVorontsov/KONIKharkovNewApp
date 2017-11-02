@@ -9,10 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-/**
- * Created by Воронцовы on 31.10.2017.
- */
-
 public abstract class SearchMenuActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -31,7 +27,7 @@ public abstract class SearchMenuActivity extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText){
-                MenuItemCompat.collapseActionView(searchMenuItem);
+                //MenuItemCompat.collapseActionView(searchMenuItem);
                 return false;
             }
         });

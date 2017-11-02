@@ -1,12 +1,15 @@
 package ua.kharkov.koni.konikharkov;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends SearchMenuActivity{
+public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     //JSON Arrays
     private JSONArray result_marka;
@@ -37,14 +40,21 @@ public class MainActivity extends SearchMenuActivity{
     private String allTypesIds;
     private String id;
     private String selected;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<Amortizator> amortizators;
     private String whatFor;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        // делаем повеселее
+        mSwipeRefreshLayout.setColorScheme(R.color.blue, R.color.green, R.color.yellow, R.color.red);
 
         amortizators = new ArrayList<>();
 
@@ -348,5 +358,22 @@ public class MainActivity extends SearchMenuActivity{
     @Override
     protected void onQuerySubmit(String query) {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        // говорим о том, что собираемся начать
+        Toast.makeText(this, R.string.refresh_started, Toast.LENGTH_SHORT).show();
+        // начинаем показывать прогресс
+        mSwipeRefreshLayout.setRefreshing(true);
+        // ждем 3 секунды и прячем прогресс
+        mSwipeRefreshLayout.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+                // говорим о том, что собираемся закончить
+                Toast.makeText(MainActivity.this, R.string.refresh_finished, Toast.LENGTH_SHORT).show();
+            }
+        }, 3000);
     }
 }
