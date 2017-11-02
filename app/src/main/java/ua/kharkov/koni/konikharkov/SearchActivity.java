@@ -1,7 +1,9 @@
 package ua.kharkov.koni.konikharkov;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
+import java.io.Serializable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,19 +26,22 @@ import java.util.List;
 
 public class SearchActivity extends SearchMenuActivity {
 
-    public static final String QUERY_DATA = "ua.kharkov.koni.konikharkov.searchActivity.query_data";
-    public static final String LIST_OF_AMORTIZATORS = "ua.kharkov.koni.konikharkov.searchActivity.list_of_amortizators";
+    private static final String ACTION_SHOW_ABSORBERS = "ua.kharkov.koni.konikharkov.searchActivity.show_absorbers";
+    private static final String EXTRA_LIST_OF_ABSORBERS = "ua.kharkov.koni.konikharkov.searchActivity.list_of_absorbers";
 
     private ProgressBar progressBar;
     private List<Amortizator> amortizators;
     private AmortizatorsAdapter adapter;
 
-    protected void onQuerySubmit(final String query){
-        getData(query);
+    public static Intent newIntentShowAbsorbers(Context packageContext, List<Amortizator> absorbers){
+        Intent intent = new Intent(packageContext, SearchActivity.class);
+        intent.setAction(ACTION_SHOW_ABSORBERS);
+        intent.putExtra(EXTRA_LIST_OF_ABSORBERS, (Serializable)absorbers);
+        return intent;
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
@@ -46,22 +52,45 @@ public class SearchActivity extends SearchMenuActivity {
         recyclerView.setLayoutManager(gridLayout);
 
         amortizators = new ArrayList<>();
-        @SuppressWarnings("unchecked")
-        List<Amortizator> listOfAmortizators = (List<Amortizator>) getIntent().getSerializableExtra(LIST_OF_AMORTIZATORS);
-        if(listOfAmortizators != null){
-            amortizators.addAll(listOfAmortizators);
-        }
+
         adapter = new AmortizatorsAdapter(this, amortizators);
         recyclerView.setAdapter(adapter);
 
-        String query = (String) getIntent().getSerializableExtra(QUERY_DATA);
-        if(query != null && !query.isEmpty()){
-            onQuerySubmit(query);
-            return;
+        if(savedInstanceState != null){
+            @SuppressWarnings("unchecked")
+            List<Amortizator> savedAmortizators = (List<Amortizator>) savedInstanceState.getSerializable(EXTRA_LIST_OF_ABSORBERS);
+            Intent intent = newIntentShowAbsorbers(this, savedAmortizators);
+            setIntent(intent);
+        }
+
+        handleIntent(getIntent());
+    }
+
+    @Override
+     protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(EXTRA_LIST_OF_ABSORBERS, (Serializable)amortizators);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent){
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            getData(query);
+        }else if(ACTION_SHOW_ABSORBERS.equals(intent.getAction())){
+            @SuppressWarnings("unchecked")
+            List<Amortizator> absorbers = (List<Amortizator>)intent.getSerializableExtra(EXTRA_LIST_OF_ABSORBERS);
+            amortizators.addAll(absorbers);
+            adapter.notifyDataSetChanged();
         }
     }
 
-    public void getData(String newText) {
+    private void getData(String newText) {
         //формируем url для запроса
         String url = Config.SEARCH_URL + newText;
         //making the progressbar visible
@@ -161,5 +190,10 @@ public class SearchActivity extends SearchMenuActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onQuerySubmit(String query) {
+
     }
 }

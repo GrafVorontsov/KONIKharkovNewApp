@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">KONI Kharkov</string>
-    <string name="search_view_hint">Enter query...</string>
+    <string name="search_view_title">Search by part number</string>
+    <string name="search_view_hint">Enter part number...</string>
     <string name="get_brand">Select brand</string>
     <string name="get_model">Select model</string>
     <string name="get_auto">Select auto</string>

@@ -18,23 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends SearchMenuActivity{
-/*
-    //Declaring an Spinner
-    private Spinner spinner_marka;
-    private Spinner spinner_model;
-    private Spinner spinner_car;
-
-    //An ArrayList for Spinner Items
-    private ArrayList<String> markas;
-    private ArrayList<String> models;
-    private ArrayList<String> cars;*/
 
     //JSON Arrays
     private JSONArray result_marka;
@@ -51,15 +40,6 @@ public class MainActivity extends SearchMenuActivity{
 
     private List<Amortizator> amortizators;
     private String whatFor;
-
-    @Override
-    protected void onQuerySubmit(String query){
-        if(!query.isEmpty()){
-            Intent intent = new Intent(this, SearchActivity.class);
-            intent.putExtra(SearchActivity.QUERY_DATA, query);
-            startActivity(intent);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -328,8 +308,7 @@ public class MainActivity extends SearchMenuActivity{
                 amortizators.add(amortizator);
             }
 
-            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-            intent.putExtra(SearchActivity.LIST_OF_AMORTIZATORS, (Serializable) amortizators);
+            Intent intent = SearchActivity.newIntentShowAbsorbers(MainActivity.this, amortizators);
             startActivity(intent);
 
         } catch (JSONException e) {
@@ -364,5 +343,10 @@ public class MainActivity extends SearchMenuActivity{
         }
 
         return id;
+    }
+
+    @Override
+    protected void onQuerySubmit(String query) {
+
     }
 }
