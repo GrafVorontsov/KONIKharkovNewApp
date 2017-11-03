@@ -3,6 +3,8 @@ package ua.kharkov.koni.konikharkov;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,6 +82,11 @@ public class SearchActivity extends SearchMenuActivity {
 
     private void handleIntent(Intent intent){
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+
+            if(!isNetworkAvailable()){
+                Toast.makeText(getApplicationContext(), getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+                return;
+            }
             String query = intent.getStringExtra(SearchManager.QUERY);
             getData(query);
         }else if(ACTION_SHOW_ABSORBERS.equals(intent.getAction())){
@@ -88,6 +95,12 @@ public class SearchActivity extends SearchMenuActivity {
             amortizators.addAll(absorbers);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private void getData(String newText) {
@@ -114,7 +127,9 @@ public class SearchActivity extends SearchMenuActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //displaying the error in toast if occurrs
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -186,9 +201,9 @@ public class SearchActivity extends SearchMenuActivity {
 
             //creating custom adapter object
             adapter.notifyDataSetChanged();
-
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            Toast.makeText(getApplicationContext(), getString(R.string.information_not_found), Toast.LENGTH_LONG).show();
         }
     }
 

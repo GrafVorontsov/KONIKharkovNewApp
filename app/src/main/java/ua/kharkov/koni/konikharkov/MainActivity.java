@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class MainActivity extends SearchMenuActivity{
 
     //JSON Arrays
     private JSONArray result_marka;
@@ -40,7 +40,6 @@ public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayo
     private String allTypesIds;
     private String id;
     private String selected;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<Amortizator> amortizators;
     private String whatFor;
@@ -51,10 +50,28 @@ public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setColorScheme(R.color.blue, R.color.green, R.color.yellow, R.color.red);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh()
+            {
+                //swipeRefreshLayout.setRefreshing(true);
+                getConnectionForSpinners("marka", Config.MARKA_URL, "null");
+
+                //swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        // говорим о том, что собираемся закончить
+                        //Toast.makeText(MainActivity.this, R.string., Toast.LENGTH_SHORT).show();
+                    }
+                }, 1500);
+            }
+        });
         // делаем повеселее
-        mSwipeRefreshLayout.setColorScheme(R.color.blue, R.color.green, R.color.yellow, R.color.red);
+
 
         amortizators = new ArrayList<>();
 
@@ -231,7 +248,6 @@ public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayo
                         JSONObject json = j.getJSONObject(i);
                         markaAdapter.add(json.getString(Config.MARKA_NAME));
                     }
-                    //spinner_marka.setAdapter(markaAdapter);
                     break;
 
                 case "model":   modelAdapter.add(getString(R.string.get_model));
@@ -252,8 +268,6 @@ public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayo
 
                     //записываем все ID для SQL запроса IN
                     allTypesIds = TextUtils.join(", ", list_id);
-
-                    //spinner_car.setAdapter(carAdapter);
                     break;
 
             }
@@ -358,22 +372,5 @@ public class MainActivity extends SearchMenuActivity implements SwipeRefreshLayo
     @Override
     protected void onQuerySubmit(String query) {
 
-    }
-
-    @Override
-    public void onRefresh() {
-        // говорим о том, что собираемся начать
-        Toast.makeText(this, R.string.refresh_started, Toast.LENGTH_SHORT).show();
-        // начинаем показывать прогресс
-        mSwipeRefreshLayout.setRefreshing(true);
-        // ждем 3 секунды и прячем прогресс
-        mSwipeRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(false);
-                // говорим о том, что собираемся закончить
-                Toast.makeText(MainActivity.this, R.string.refresh_finished, Toast.LENGTH_SHORT).show();
-            }
-        }, 3000);
     }
 }
