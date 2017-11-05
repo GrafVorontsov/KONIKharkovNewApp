@@ -2,6 +2,8 @@ package ua.kharkov.koni.konikharkov;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -10,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public abstract class SearchMenuActivity extends AppCompatActivity {
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -27,8 +30,7 @@ public abstract class SearchMenuActivity extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText){
-                //MenuItemCompat.collapseActionView(searchMenuItem);
-                return false;
+               return false;
             }
         });
 
@@ -38,4 +40,10 @@ public abstract class SearchMenuActivity extends AppCompatActivity {
     private SearchView searchView;
 
     protected abstract void onQuerySubmit(String query);
+
+    protected boolean isNetworkAvailable(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

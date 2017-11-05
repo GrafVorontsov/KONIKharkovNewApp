@@ -1,6 +1,5 @@
 package ua.kharkov.koni.konikharkov;
 
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,17 +10,13 @@ import android.widget.Toast;
 
 import java.util.List;
 
-/**
- * Created by AndroidBash on 09/05/2016.
- */
 public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
 
     private Context context;
     private LayoutInflater inflater;
     private List<Amortizator> amortizators;
-    //List<Amortizator> amortizators= Collections.emptyList();
     Amortizator current;
+    String num;
 
     public AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
         this.context = context;
@@ -42,7 +37,9 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         // Get current position of item in RecyclerView to bind data and assign values from list
         MyHolder myHolder= (MyHolder) holder;
-        Amortizator current=amortizators.get(position);
+        current=amortizators.get(position);
+        //Amortizator current=amortizators.get(position);
+
 
         try {
             myHolder.marka_name.setVisibility(View.VISIBLE);
@@ -113,7 +110,8 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         // Click event for all items
         @Override
         public void onClick(View view) {
-            Toast.makeText(context, "You clicked an item", Toast.LENGTH_SHORT).show();
+            num = current.getArt_number();
+            Toast.makeText(context, "You clicked " + num, Toast.LENGTH_SHORT).show();
         }
 
 

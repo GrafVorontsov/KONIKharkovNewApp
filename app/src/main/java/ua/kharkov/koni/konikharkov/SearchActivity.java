@@ -3,8 +3,6 @@ package ua.kharkov.koni.konikharkov;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -69,7 +67,7 @@ public class SearchActivity extends SearchMenuActivity {
     }
 
     @Override
-     protected void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putSerializable(EXTRA_LIST_OF_ABSORBERS, (Serializable)amortizators);
     }
@@ -79,6 +77,7 @@ public class SearchActivity extends SearchMenuActivity {
         super.onNewIntent(intent);
         handleIntent(intent);
     }
+
 
     private void handleIntent(Intent intent){
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -97,13 +96,7 @@ public class SearchActivity extends SearchMenuActivity {
         }
     }
 
-    private boolean isNetworkAvailable(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    private void getData(String newText) {
+    public void getData(String newText) {
         //формируем url для запроса
         String url = Config.SEARCH_URL + newText;
         //making the progressbar visible

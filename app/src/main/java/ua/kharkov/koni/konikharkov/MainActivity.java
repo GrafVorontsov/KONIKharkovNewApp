@@ -50,28 +50,30 @@ public class MainActivity extends SearchMenuActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //проверяем подкдючен ли интернет
+        if(!isNetworkAvailable()){
+            Toast.makeText(getApplicationContext(), getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+        }
+
+        //тянуть и обновить
         final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorScheme(R.color.blue, R.color.green, R.color.yellow, R.color.red);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh()
-            {
-                //swipeRefreshLayout.setRefreshing(true);
-                getConnectionForSpinners("marka", Config.MARKA_URL, "null");
-
-                //swipeRefreshLayout.setRefreshing(false);
+            public void onRefresh(){
+                if(!isNetworkAvailable()){
+                    Toast.makeText(getApplicationContext(), getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+                }else {
+                    getConnectionForSpinners("marka", Config.MARKA_URL, "null");
+                }
                 swipeRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
-                        // говорим о том, что собираемся закончить
-                        //Toast.makeText(MainActivity.this, R.string., Toast.LENGTH_SHORT).show();
                     }
-                }, 1500);
+                }, 1000);
             }
         });
-        // делаем повеселее
-
 
         amortizators = new ArrayList<>();
 
