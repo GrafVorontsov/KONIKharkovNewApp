@@ -281,6 +281,7 @@ public class MainActivity extends SearchMenuActivity{
     private void getAmortNames(JSONArray cars, JSONArray rates){
         String marka_bool = "";
         String model_bool = "";
+        String car_bool = "";
 
         try {
             int kurs;
@@ -300,6 +301,10 @@ public class MainActivity extends SearchMenuActivity{
                         object.getString("range_type"),
                         object.getString("install"),
                         object.getString("art_number"),
+                        object.getString("info"),
+                        object.getString("info_lowering"),
+                        object.getString("jpg"),
+                        object.getString("pdf"),
                         object.getString("status"),
                         object.getString("PRICE_EURO"));
 
@@ -318,6 +323,14 @@ public class MainActivity extends SearchMenuActivity{
                     model_bool = model;
                 } else {
                     amortizator.setModel_name("");
+                }
+
+                String car = amortizator.getCar_name();
+
+                if (!car.equals(car_bool)) {
+                    car_bool = car;
+                } else {
+                    amortizator.setCar_name("");
                 }
 
                 String pr_euro = amortizator.getPrice_euro();

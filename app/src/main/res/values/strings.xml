@@ -8,4 +8,11 @@
     <string name="selection_of_absorbers">SELECTION OF ABSORBERS IN THE CATALOG</string>
     <string name="no_internet_connection">No connection to the internet.</string>
     <string name="information_not_found">Information on the part number not found.</string>
+    <string name="year">year</string>
+    <string name="status">status</string>
+    <string name="range">range</string>
+    <string name="price">Price</string>
+    <string name="install">Install</string>
+    <string name="todo">TODO</string>
+    <string name="marka">Marka</string>
 </resources>

@@ -148,8 +148,8 @@ public class SearchActivity extends SearchMenuActivity {
             for (int i = 0; i < cars.length(); i++) {
 
                 JSONObject object = cars.getJSONObject(i);
-
-                Amortizator amortizator = new Amortizator(object.getInt("id"),
+/*
+                Amortizator amortizator = new Amortizator(
                         object.getString("marka_name"),
                         object.getString("model_name"),
                         object.getString("car_name"),
@@ -158,6 +158,23 @@ public class SearchActivity extends SearchMenuActivity {
                         object.getString("range_type"),
                         object.getString("install"),
                         object.getString("art_number"),
+                        object.getString("status"),
+                        object.getString("PRICE_EURO"));
+*/
+
+                Amortizator amortizator = new Amortizator(
+                        object.getString("marka_name"),
+                        object.getString("model_name"),
+                        object.getString("car_name"),
+                        object.getString("correction"),
+                        object.getString("year"),
+                        object.getString("range_type"),
+                        object.getString("install"),
+                        object.getString("art_number"),
+                        object.getString("info"),
+                        object.getString("info_lowering"),
+                        object.getString("jpg"),
+                        object.getString("pdf"),
                         object.getString("status"),
                         object.getString("PRICE_EURO"));
 

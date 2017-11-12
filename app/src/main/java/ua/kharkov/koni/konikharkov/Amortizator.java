@@ -41,20 +41,6 @@ public class Amortizator implements Serializable {
         this.price_euro = price_euro;
     }
 
-    public Amortizator(int id, String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String status, String price_euro) {
-        this.id = id;
-        this.marka_name = marka_name;
-        this.model_name = model_name;
-        this.car_name = car_name;
-        this.correction = correction;
-        this.year = year;
-        this.range = range;
-        this.install = install;
-        this.art_number = art_number;
-        this.status = status;
-        this.price_euro = price_euro;
-    }
-
     public Amortizator(int id, String marka_name, String model_name, String car_name, String art_number, String price_euro) {
         this.id = id;
         this.marka_name = marka_name;
@@ -65,8 +51,7 @@ public class Amortizator implements Serializable {
 
     }
 
-    public Amortizator(int id, String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String info, String info_lowering, String jpg, String pdf, String status, String price_euro) {
-        this.id = id;
+    public Amortizator(String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String info, String info_lowering, String jpg, String pdf, String status, String price_euro) {
         this.marka_name = marka_name;
         this.model_name = model_name;
         this.car_name = car_name;

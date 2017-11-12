@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="1dp"
+        card_view:cardElevation="0dp"
+        card_view:cardUseCompatPadding="true">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/marka_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:background="#ED1C2A"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/marka"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/model_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="#333F48"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:text="Model"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/marka_name" />
+
+            <TextView
+                android:id="@+id/car_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0.29"
+                android:background="#FFFFFF"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Car"
+                android:textColor="#333F48"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/model_name"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/correction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="3"
+                android:background="#FFFFFF"
+                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
+                android:text="Correction"
+                android:textColor="#333F48"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                card_view:layout_constraintEnd_toStartOf="@+id/iconInfo"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/car_name"
+                tools:ignore="HardcodedText" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="144dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_weight="2"
+                        android:padding="5dp"
+                        android:text="@string/year"
+                        android:textColor="#333F48"
+                        android:textSize="17sp"
+                        android:textStyle="italic"
+                        tools:layout_editor_absoluteX="4dp"
+                        tools:layout_editor_absoluteY="148dp" />
+
+                    <TextView
+                        android:id="@+id/range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="2"
+                        android:padding="5dp"
+                        android:text="@string/range"
+                        android:textAlignment="center"
+                        android:textColor="#333F48"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        card_view:layout_constraintEnd_toStartOf="@+id/install"
+                        card_view:layout_constraintStart_toEndOf="@+id/year"
+                        tools:layout_editor_absoluteY="148dp" />
+
+                    <TextView
+                        android:id="@+id/install"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="2"
+                        android:padding="5dp"
+                        android:text="@string/install"
+                        android:textAlignment="center"
+                        android:textColor="@color/blue"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        card_view:layout_constraintEnd_toStartOf="@+id/status"
+                        tools:layout_editor_absoluteY="148dp" />
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_weight="2"
+                        android:padding="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingStart="5dp"
+                        android:text="@string/status"
+                        android:textAlignment="viewEnd"
+                        android:textColor="#333F48"
+                        android:textSize="17sp"
+                        android:textStyle="italic"
+                        tools:layout_editor_absoluteX="232dp"
+                        tools:layout_editor_absoluteY="148dp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <ImageView
+                android:id="@+id/iconInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/todo"
+                android:paddingBottom="3dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                android:scaleType="center"
+                card_view:layout_constraintEnd_toStartOf="@+id/iconIMG"
+                card_view:layout_constraintTop_toBottomOf="@+id/car_name"
+                card_view:srcCompat="@drawable/info" />
+
+            <ImageView
+                android:id="@+id/iconIMG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:contentDescription="TODO"
+                android:paddingBottom="3dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                card_view:layout_constraintEnd_toStartOf="@+id/iconLowering"
+                card_view:layout_constraintTop_toBottomOf="@+id/car_name"
+                card_view:srcCompat="@drawable/image" />
+
+            <ImageView
+                android:id="@+id/iconLowering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/todo"
+                android:paddingBottom="3dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+                card_view:layout_constraintEnd_toStartOf="@+id/iconPDF"
+                card_view:layout_constraintTop_toBottomOf="@+id/car_name"
+                card_view:srcCompat="@drawable/lowering" />
+
+            <ImageView
+                android:id="@+id/iconPDF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/todo"
+                android:paddingBottom="3dp"
+                android:paddingTop="2dp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/car_name"
+                card_view:srcCompat="@drawable/pdf" />
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/info_lowering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/art_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:text="Number"
+                android:textColor="#333F48"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="187dp" />
+
+            <TextView
+                android:id="@+id/price_euro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_weight="3"
+                android:padding="3dp"
+                android:text="@string/price"
+                android:textAlignment="viewEnd"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                card_view:layout_constraintBottom_toBottomOf="@+id/art_number"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:height="2dp"
+                android:background="@color/cardview_dark_background"
+                card_view:layout_constraintTop_toBottomOf="@+id/price_euro" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
