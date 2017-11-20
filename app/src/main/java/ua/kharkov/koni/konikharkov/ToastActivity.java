@@ -49,31 +49,24 @@ public class ToastActivity extends AppCompatActivity {
         void fillData() {
             for (int i = 0; i < splitIedInfo.length; i++){
                 if (splitIedInfo[i].contains("<h3>")){
-                    text = splitIedInfo[i].replace("<h3>", "");
+                    text = splitIedInfo[i].replace("<h3>", "").replace("</h3>", "");
                     infos.add(new Info(text));
                 }else if (splitIedInfo[i].contains("koni2")){
                     split = splitIedInfo[i].split("</span></span>");
-                    icon = split[0];
-                    text = split[1];
+                    icon = split[0].replace("<p><span class=\"icon\"><span class=\"koni2\">", "koni");
+                    text = split[1].replace("</p>", "");
 
                     infos.add(new Info(icon,text));
                 }else {
                     split = splitIedInfo[i].split("</span>");
-                    icon = split[0];
-                    text = split[1];
+                    icon = split[0].replace("<p><span class=\"icon\">", "icon");;
+                    text = split[1].replace("</p>", "");
 
                     infos.add(new Info(icon, text));
                 }
             }
         }
-/*
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerviewtoast);
-        GridLayoutManager gridLayout = new GridLayoutManager(this, 1);  //(объект, количество колонок)
-        recyclerView.setLayoutManager(gridLayout);
 
-        infos = new ArrayList<>();
-
-*/
 
 
 /*

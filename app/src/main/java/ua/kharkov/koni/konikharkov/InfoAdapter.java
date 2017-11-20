@@ -1,6 +1,7 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,13 +49,30 @@ public class InfoAdapter extends BaseAdapter {
 
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
+        TextView infoViewIcon = ((TextView) view.findViewById(R.id.infoIcon));
+        TextView infoKoniIcon = ((TextView) view.findViewById(R.id.infoKoniIcon));
+        //infoViewIcon.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/koni2-webfont.ttf"));
+        infoViewIcon.setVisibility(View.GONE);
+        infoKoniIcon.setVisibility(View.GONE);
         try {
+            String icon = pInfo.getIcon();
+            if (icon.contains("icon")){
+                icon = icon.replace("icon", "");
+                infoViewIcon.setVisibility(View.VISIBLE);
+                infoViewIcon.setText(icon);
+            }else if (icon.contains("koni")){
+                icon = icon.replace("koni", "");
+                infoKoniIcon.setVisibility(View.VISIBLE);
+                infoKoniIcon.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/koni2-webfont.ttf"));
+                infoKoniIcon.setText(icon);
+            }else {
+                //infoViewIcon.setVisibility(View.GONE);
+                //infoKoniIcon.setVisibility(View.GONE);
+            }
 
-           TextView infoViewIcon = ((TextView) view.findViewById(R.id.infoIcon));
-            //infoViewIcon.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/koni2-webfont.ttf"));
-            infoViewIcon.setText(pInfo.getIcon());
         }catch (Exception e){
             e.printStackTrace();
+
         }
 
         ((TextView) view.findViewById(R.id.infoText)).setText(pInfo.getText());
