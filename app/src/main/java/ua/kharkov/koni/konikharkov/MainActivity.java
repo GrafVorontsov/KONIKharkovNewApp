@@ -46,7 +46,7 @@ public class MainActivity extends SearchMenuActivity{
     private ArrayAdapter<String> markaAdapter;
     private ArrayAdapter<String> modelAdapter;
     private ArrayAdapter<String> carAdapter;
-    private List<String> list_id = new ArrayList<String>();
+    private List<String> list_id = new ArrayList<>();
     private String allTypesIds;
     private String id;
     private String selected;
@@ -60,13 +60,16 @@ public class MainActivity extends SearchMenuActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        myDrawerList = (NavigationView) findViewById(R.id.navdrawer);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        myDrawerList = findViewById(R.id.navdrawer);
 
         myDrawerList.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -75,20 +78,20 @@ public class MainActivity extends SearchMenuActivity{
                 switch (itemId) {
                     case R.id.main:
                         mDrawerLayout.closeDrawers();
-                        Toast.makeText(getApplicationContext(), getString(R.string.open), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.call:
+                        Intent call = new Intent(getApplicationContext(), PhoneActivity.class);
+                        startActivity(call);
+                        mDrawerLayout.closeDrawers();
                         break;
                     case R.id.about:
-                        //item.setTitle(item.getTitle());
-                        //getSupportActionBar().setTitle(item.getTitle());
                         Intent about = new Intent(getApplicationContext(), AboutActivity.class);
                         startActivity(about);
                         mDrawerLayout.closeDrawers();
-                        Toast.makeText(getApplicationContext(), getString(R.string.close), Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
                 }
-
                 return false;
             }
         });
@@ -99,7 +102,7 @@ public class MainActivity extends SearchMenuActivity{
         }
 
         //тянуть и обновить
-        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorScheme(R.color.blue, R.color.green, R.color.yellow, R.color.red);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -127,15 +130,13 @@ public class MainActivity extends SearchMenuActivity{
         markaAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, markas);
 
         modelAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, models);
-        //modelAdapter.notifyDataSetChanged();
         modelAdapter.setNotifyOnChange(true);
 
         carAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, cars);
-        //carAdapter.notifyDataSetChanged();
         carAdapter.setNotifyOnChange(true);
 
         //спиннер для марок
-        final Spinner spinner_marka = (Spinner) findViewById(R.id.spinner_marka);
+        final Spinner spinner_marka = findViewById(R.id.spinner_marka);
         spinner_marka.setAdapter(markaAdapter);
         spinner_marka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -155,7 +156,7 @@ public class MainActivity extends SearchMenuActivity{
         });
 
         //синнер для моделей
-        final Spinner spinner_model = (Spinner) findViewById(R.id.spinner_model);
+        final Spinner spinner_model = findViewById(R.id.spinner_model);
         spinner_model.setAdapter(modelAdapter);
         spinner_model.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -176,7 +177,7 @@ public class MainActivity extends SearchMenuActivity{
         });
 
         //спиннер для автомобилей
-        final Spinner spinner_car = (Spinner) findViewById(R.id.spinner_car);
+        final Spinner spinner_car = findViewById(R.id.spinner_car);
         spinner_car.setAdapter(carAdapter);
         spinner_car.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //
@@ -204,7 +205,7 @@ public class MainActivity extends SearchMenuActivity{
         String url;
         whatFor = what;
 
-        if (id == "null"){
+        if (id.equals("null")){
             url = URL;
         }else {
             url = URL + "?id=" + id.trim();
@@ -243,11 +244,9 @@ public class MainActivity extends SearchMenuActivity{
     }
 
     private void getConnectionForAmortizators(String URL, String ids){
-
         id = ids;
-        String url = URL;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -432,10 +431,7 @@ public class MainActivity extends SearchMenuActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override

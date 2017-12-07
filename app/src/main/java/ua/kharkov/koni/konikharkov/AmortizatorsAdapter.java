@@ -21,9 +21,9 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private LayoutInflater inflater;
     private List<Amortizator> amortizators;
-    Amortizator current;
+    private Amortizator current;
 
-    public AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
+    AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
         this.context = context;
         inflater= LayoutInflater.from(context);
         this.amortizators = amortizators;
@@ -32,8 +32,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=inflater.inflate(R.layout.card, parent,false);
-        MyHolder holder=new MyHolder(view);
-        return holder;
+        return new MyHolder(view);
     }
 
     // Bind data
@@ -156,28 +155,28 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private ImageView iconIMG;
         private ImageView iconLowering;
 
-
         // create constructor to get widget reference
         @SuppressLint("WrongViewCast")
-        public MyHolder(View itemView) {
+        MyHolder(View itemView) {
             super(itemView);
-            carName = (TextView) itemView.findViewById(R.id.car_name);
-            art_number = (TextView) itemView.findViewById(R.id.art_number);
-            model_name = (TextView) itemView.findViewById(R.id.model_name);
-            marka_name = (TextView) itemView.findViewById(R.id.marka_name);
-            correction = (TextView) itemView.findViewById(R.id.correction);
-            year = (TextView) itemView.findViewById(R.id.year);
-            range = (TextView) itemView.findViewById(R.id.range);
-            info_lowering = (TextView) itemView.findViewById(R.id.info_lowering);
-            install = (TextView) itemView.findViewById(R.id.install);
-            info = (TextView) itemView.findViewById(R.id.info);
-            pic = (TextView) itemView.findViewById(R.id.pic);
-            status = (TextView) itemView.findViewById(R.id.status);
-            price_euro = (TextView) itemView.findViewById(R.id.price_euro);
-            iconInfo = (ImageView) itemView.findViewById(R.id.iconInfo);
-            iconLowering = (ImageView) itemView.findViewById(R.id.iconLowering);
-            iconIMG = (ImageView) itemView.findViewById(R.id.iconIMG);
-            //jpg.setOnClickListener(this);
+            carName = itemView.findViewById(R.id.car_name);
+            art_number = itemView.findViewById(R.id.art_number);
+            model_name = itemView.findViewById(R.id.model_name);
+            marka_name = itemView.findViewById(R.id.marka_name);
+            correction = itemView.findViewById(R.id.correction);
+            year = itemView.findViewById(R.id.year);
+            range = itemView.findViewById(R.id.range);
+            info_lowering = itemView.findViewById(R.id.info_lowering);
+            install = itemView.findViewById(R.id.install);
+            info = itemView.findViewById(R.id.info);
+            pic = itemView.findViewById(R.id.pic);
+            status = itemView.findViewById(R.id.status);
+            price_euro = itemView.findViewById(R.id.price_euro);
+            iconInfo = itemView.findViewById(R.id.iconInfo);
+            iconLowering = itemView.findViewById(R.id.iconLowering);
+            iconIMG = itemView.findViewById(R.id.iconIMG);
+
+            //вешаем слушатель на карточку товара
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -192,40 +191,14 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
 
             });
-        }
-    }
-    /*
-    private void showPopupMenu(View view, int position) {
-        PopupMenu popup = new PopupMenu(context, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_context, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MenuClickListener(position));
-        popup.show();
-    }
-*/
-/*
-    class MenuClickListener implements PopupMenu.OnMenuItemClickListener {
-        Integer pos;
-        public MenuClickListener(int pos) {
-            this.pos=pos;
-        }
 
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.action_favourite:
-                    Toast.makeText(context, amortizators.get(pos).getCar_name()+" is added to favourite", Toast.LENGTH_SHORT).show();
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    Toast.makeText(context, "is added to favourite", Toast.LENGTH_SHORT).show();
                     return true;
-                case R.id.action_watch:
-                    Toast.makeText(context, amortizators.get(pos).getCar_name()+" is added to watchlist", Toast.LENGTH_SHORT).show();
-                    return true;
-                case R.id.action_book:
-                    Toast.makeText(context, "Booked Ticket for " + amortizators.get(pos).getCar_name(), Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
-            }
-            return false;
+                }
+            });
         }
     }
-    */
 }

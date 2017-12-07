@@ -17,7 +17,7 @@ public class InfoAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<Info> infos;
 
-    public InfoAdapter(Context context, ArrayList<Info> infos) {
+    InfoAdapter(Context context, ArrayList<Info> infos) {
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.infos = infos;
@@ -50,8 +50,8 @@ public class InfoAdapter extends BaseAdapter {
 
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
-        TextView infoViewIcon = ((TextView) view.findViewById(R.id.infoIcon));
-        TextView infoKoniIcon = ((TextView) view.findViewById(R.id.infoKoniIcon));
+        TextView infoViewIcon = view.findViewById(R.id.infoIcon);
+        TextView infoKoniIcon = view.findViewById(R.id.infoKoniIcon);
 
         infoViewIcon.setVisibility(View.GONE);
         infoKoniIcon.setVisibility(View.GONE);
@@ -66,9 +66,6 @@ public class InfoAdapter extends BaseAdapter {
                 infoKoniIcon.setVisibility(View.VISIBLE);
                 infoKoniIcon.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/koni2-webfont.ttf"));
                 infoKoniIcon.setText(icon);
-            }else {
-                //infoViewIcon.setVisibility(View.GONE);
-                //infoKoniIcon.setVisibility(View.GONE);
             }
 
         }catch (Exception e){
@@ -82,12 +79,10 @@ public class InfoAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
-
         return view;
     }
     // товар по позиции
-    Info getInfo(int position) {
+    private Info getInfo(int position) {
         return ((Info) getItem(position));
     }
 

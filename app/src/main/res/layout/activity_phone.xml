@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ua.kharkov.koni.konikharkov.PhoneActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_horizontal|center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/title_call"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/vodafone"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:srcCompat="@drawable/vodafone"
+                android:contentDescription="@string/vodafone" />
+
+            <ImageView
+                android:id="@+id/kyivstar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:srcCompat="@drawable/kyivstar"
+                android:contentDescription="@string/kyivstar" />
+
+            <ImageView
+                android:id="@+id/life"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:srcCompat="@drawable/lifecell"
+                android:contentDescription="@string/life" />
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
