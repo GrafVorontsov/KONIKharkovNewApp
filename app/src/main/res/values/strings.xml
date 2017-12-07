@@ -15,4 +15,10 @@
     <string name="install">Install</string>
     <string name="todo">TODO</string>
     <string name="marka">Marka</string>
+    <string name="open">Open navigation drawer</string>
+    <string name="close">Close navigation drawer</string>
+    <string name="copy_right" translatable="false" >Copyrights © %1$d</string>
+    <string name="info">Info</string>
+    <string name="main_page">Catalog</string>
+    <string name="call_page">Call to manager</string>
 </resources>

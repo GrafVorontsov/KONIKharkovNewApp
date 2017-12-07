@@ -1,52 +1,129 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.widget.ArrayAdapter;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
+import com.github.chrisbanes.photoview.PhotoView;
+
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ToastActivity extends AppCompatActivity {
-    TextView infoView;
-    TextView infoViewIcon;
-    TextView info_loweringView;
+
     InfoAdapter infoAdapter;
     ArrayList<Info> infos = new ArrayList<Info>();
-
-    String icon;
-    String text;
-    String[] split;
-    String[] splitIedInfo;
+    private ProgressBar progressBar;
+    String info = null;
+    String info_lowering = null;
+    String pic = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toast);
 
-        Intent intent = getIntent();
-        String info_lowering = intent.getStringExtra("info_lowering");
-        String info = intent.getStringExtra("info");
-
-        splitIedInfo = info.split(";");
-        fillData();
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         infoAdapter = new InfoAdapter(this, infos);
+        infoAdapter.notifyDataSetChanged();
+        infos.clear();
+        progressBar = (ProgressBar) findViewById(R.id.progressBarToast);
+
         ListView listView = (ListView) findViewById(R.id.listView);
-/*
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, splitIedInfo);
-*/
-        listView.setAdapter(infoAdapter);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.listInfo);
+
+        Intent intent = getIntent();
+
+        try {
+            info = intent.getStringExtra("info");
+
+            if (info.equals(null) || info.equals("")){
+                linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+            }else {
+                fillData();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            info_lowering = intent.getStringExtra("info_lowering");
+
+            if (info_lowering.equals(null) || info_lowering.equals("")) {
+
+            }else {
+                fillDataLowering();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try{
+            listView.setAdapter(infoAdapter);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        PhotoView bindImage = (PhotoView) findViewById(R.id.img);
+
+        try {
+            pic = intent.getStringExtra("pic");
+
+            if (pic.equals(null) || pic.equals("")){
+                bindImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+            }
+
+            String pathToFile = "http://koni.kharkov.ua/catalog/images/products/" + pic;
+            DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(bindImage);
+            downloadTask.execute(pathToFile);
+
+        }catch (Exception e){}
+    }
+
+    //класс который загружает картинки
+    private class DownloadImageWithURLTask extends AsyncTask<String, Void, Bitmap> {
+        //PinchZoomImageView bmImage;
+        //ImageView bmImage;
+        PhotoView bmImage;
+        public DownloadImageWithURLTask(PhotoView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String pathToFile = urls[0];
+            Bitmap bitmap = null;
+            try {
+                progressBar.setVisibility(View.VISIBLE);
+                InputStream in = new java.net.URL(pathToFile).openStream();
+                bitmap = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+        protected void onPostExecute(Bitmap result) {
+            progressBar.setVisibility(View.GONE);
+            bmImage.setImageBitmap(result);
+        }
     }
         // генерируем данные для адаптера
         void fillData() {
+            String[] splitIedInfo = info.split(";");
+            String[] split;
+            String icon;
+            String text;
+
             for (int i = 0; i < splitIedInfo.length; i++){
                 if (splitIedInfo[i].contains("<h3>")){
                     text = splitIedInfo[i].replace("<h3>", "").replace("</h3>", "");
@@ -67,54 +144,30 @@ public class ToastActivity extends AppCompatActivity {
             }
         }
 
+    void fillDataLowering() {
+        String text;
+        String[] splitIedInfoLowering = info_lowering.split(";");
+        infos.add(new Info(""));
+        for (int i = 0; i < splitIedInfoLowering.length; i++){
 
-
-/*
-        infoViewIcon.setTypeface(Typeface.createFromAsset(
-                getAssets(), "fonts/koni2-webfont.ttf"));
-*/
-/*
-try {
-    String[] splitIedInfo = info.split(";");
-    for (String splitInfo : splitIedInfo) {
-        if (splitInfo.contains("koni2") && splitInfo.contains("icon")){
-            String i = "";
-            String p = "";
-            String[] spl = splitInfo.split("</span></span>");
-
-            for (String s : spl){
-
-                if (s.contains("koni2")){
-                    i = s.replace("<p><span class=\"icon\"><span class=\"koni2\">", "");
-                }else {
-                    p = s.replace("</p>", "");
-
-                }
-
+            if (splitIedInfoLowering[i].contains("<h3>")){
+                text = splitIedInfoLowering[i].replace("<h3>", "").replace("</h3>", "");
+                infos.add(new Info(text));
+            }else if (splitIedInfoLowering[i].contains("<p>")){
+                text = splitIedInfoLowering[i].replace("<p>", "").replace("</p>", "");
+                infos.add(new Info(text));
             }
-            Info info1 = new Info(i, p);
-            infos.add(info1);
-
-
-
-        }else if (splitInfo.contains("icon") && !splitInfo.contains("koni2")){
-           // infoView.setText(splitInfo);
         }
-        infoAdapter = new InfoAdapter(this, infos);
-        recyclerView.setAdapter(infoAdapter);
     }
-}catch (NullPointerException e){
-    e.printStackTrace();
 
-}
-*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-//infoView.setText(info);
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
 
-        //infoView.setText(Html.fromHtml("![CDATA[" + info + "]]"));
-        //info_loweringView.setText(Html.fromHtml("![CDATA[" + info_lowering + "]]"));
-
-
-
-
+        return super.onOptionsItemSelected(item);
+    }
 }

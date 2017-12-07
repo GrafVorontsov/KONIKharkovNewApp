@@ -1,10 +1,17 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +35,9 @@ import java.util.Map;
 
 public class MainActivity extends SearchMenuActivity{
 
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private NavigationView myDrawerList;
     //JSON Arrays
     private JSONArray result_marka;
     private JSONArray result_model;
@@ -49,6 +59,39 @@ public class MainActivity extends SearchMenuActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        myDrawerList = (NavigationView) findViewById(R.id.navdrawer);
+
+        myDrawerList.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.main:
+                        mDrawerLayout.closeDrawers();
+                        Toast.makeText(getApplicationContext(), getString(R.string.open), Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.about:
+                        //item.setTitle(item.getTitle());
+                        //getSupportActionBar().setTitle(item.getTitle());
+                        Intent about = new Intent(getApplicationContext(), AboutActivity.class);
+                        startActivity(about);
+                        mDrawerLayout.closeDrawers();
+                        Toast.makeText(getApplicationContext(), getString(R.string.close), Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+
+                return false;
+            }
+        });
 
         //проверяем подкдючен ли интернет
         if(!isNetworkAvailable()){
@@ -385,7 +428,33 @@ public class MainActivity extends SearchMenuActivity{
     }
 
     @Override
-    protected void onQuerySubmit(String query) {
+    protected void onQuerySubmit(String query) {}
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        //закрываем боковую панель, если открыта, кнопкой НАЗАД
+        if(mDrawerLayout.isDrawerOpen(myDrawerList)){ //replace this with actual function which returns if the drawer is open
+            mDrawerLayout.closeDrawers();     // replace this with actual function which closes drawer
+        }
+        else{
+            //Диалог подтвердения выхода из приложения
+            new AlertDialog.Builder(this)
+                    .setTitle("Выйти из приложения?")
+                    .setMessage("Вы действительно хотите выйти?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            MainActivity.super.onBackPressed();
+                        }
+                    }).create().show();
+        }
     }
 }

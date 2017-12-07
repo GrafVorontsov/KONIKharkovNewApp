@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">KONI Харьков</string>
     <string name="search_view_title">Поиск по номеру детали</string>
     <string name="search_view_hint">Введите номер детали...</string>
     <string name="get_brand">Выберите марку</string>
@@ -7,4 +8,10 @@
     <string name="selection_of_absorbers">ПОДБОР АМОРТИЗАТОРОВ ПО КАТАЛОГУ</string>
     <string name="no_internet_connection">Нет подключения к интернету</string>
     <string name="information_not_found">Информации по данному номеру детали не найдено.</string>
+    <string name="open">Панель навигации открыта</string>
+    <string name="close">Панель навигации закрыта</string>
+    <string name="info">Информация</string>
+    <string name="main_page">Каталог</string>
+    <string name="call_page">Звонок менеджеру</string>
+
 </resources>

@@ -3,6 +3,7 @@ package ua.kharkov.koni.konikharkov;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -51,7 +52,7 @@ public class InfoAdapter extends BaseAdapter {
         // и картинка
         TextView infoViewIcon = ((TextView) view.findViewById(R.id.infoIcon));
         TextView infoKoniIcon = ((TextView) view.findViewById(R.id.infoKoniIcon));
-        //infoViewIcon.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/koni2-webfont.ttf"));
+
         infoViewIcon.setVisibility(View.GONE);
         infoKoniIcon.setVisibility(View.GONE);
         try {
@@ -75,7 +76,12 @@ public class InfoAdapter extends BaseAdapter {
 
         }
 
-        ((TextView) view.findViewById(R.id.infoText)).setText(pInfo.getText());
+        try {
+            ((TextView) view.findViewById(R.id.infoText)).setText(pInfo.getText());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         //((ImageView) view.findViewById(R.id.ivImage)).setImageResource(p.image);
 
         return view;
@@ -84,4 +90,10 @@ public class InfoAdapter extends BaseAdapter {
     Info getInfo(int position) {
         return ((Info) getItem(position));
     }
+
+    public void clear() {
+        // TODO Auto-generated method stub
+        infos.clear();
+    }
+
 }

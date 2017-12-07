@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class SearchActivity extends SearchMenuActivity {
     private ProgressBar progressBar;
     private List<Amortizator> amortizators;
     private AmortizatorsAdapter adapter;
+    RecyclerView recyclerView;
 
     public static Intent newIntentShowAbsorbers(Context packageContext, List<Amortizator> absorbers){
         Intent intent = new Intent(packageContext, SearchActivity.class);
@@ -44,10 +46,11 @@ public class SearchActivity extends SearchMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 1);  //(объект, количество колонок)
         recyclerView.setLayoutManager(gridLayout);
 
@@ -64,6 +67,7 @@ public class SearchActivity extends SearchMenuActivity {
         }
 
         handleIntent(getIntent());
+
     }
 
     @Override
@@ -77,7 +81,6 @@ public class SearchActivity extends SearchMenuActivity {
         super.onNewIntent(intent);
         handleIntent(intent);
     }
-
 
     private void handleIntent(Intent intent){
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -112,7 +115,6 @@ public class SearchActivity extends SearchMenuActivity {
                         amortizators.clear(); //очистка списка найденных амортизаторов перед каждым поиском
                         adapter.notifyDataSetChanged();
                         showJSON(response);
-
                     }
                 },
 
@@ -120,7 +122,6 @@ public class SearchActivity extends SearchMenuActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         //displaying the error in toast if occurrs
-                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -148,19 +149,6 @@ public class SearchActivity extends SearchMenuActivity {
             for (int i = 0; i < cars.length(); i++) {
 
                 JSONObject object = cars.getJSONObject(i);
-/*
-                Amortizator amortizator = new Amortizator(
-                        object.getString("marka_name"),
-                        object.getString("model_name"),
-                        object.getString("car_name"),
-                        object.getString("correction"),
-                        object.getString("year"),
-                        object.getString("range_type"),
-                        object.getString("install"),
-                        object.getString("art_number"),
-                        object.getString("status"),
-                        object.getString("PRICE_EURO"));
-*/
 
                 Amortizator amortizator = new Amortizator(
                         object.getString("marka_name"),
@@ -209,16 +197,33 @@ public class SearchActivity extends SearchMenuActivity {
                 amortizators.add(amortizator);
             }
 
-            //creating custom adapter object
+            //
             adapter.notifyDataSetChanged();
+
+            //прокрутка списка в начало, после каждого поиска
+            recyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    // Call smooth scroll
+                    recyclerView.smoothScrollToPosition(0);
+                }
+            });
         } catch (JSONException e) {
-            //e.printStackTrace();
             Toast.makeText(getApplicationContext(), getString(R.string.information_not_found), Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
-    protected void onQuerySubmit(String query) {
+    protected void onQuerySubmit(String query) {}
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();  return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

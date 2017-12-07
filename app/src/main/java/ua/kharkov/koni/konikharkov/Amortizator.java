@@ -20,13 +20,6 @@ public class Amortizator implements Serializable {
     private String status;
     private String price_euro;
 
-    /*
-    $info = $amort['info'];
-    $info_lowering = $amort['info_lowering'];
-    $jpg = $amort['jpg'];
-    $pdf = $amort['pdf'];
-    $pdf_fancybox = str_replace(".pdf", "", $pdf);
-    */
     public Amortizator(String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String status, String price_euro) {
         this.id = id;
         this.marka_name = marka_name;

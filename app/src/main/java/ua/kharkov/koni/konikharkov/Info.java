@@ -28,26 +28,3 @@ public class Info {
         this.text = text;
     }
 }
-
-
-
-/*
-        function info($info){
-                $infos = explode(";", $info);
-
-        echo "<table>";
-        foreach($infos as $info){
-            echo "<tr><td>" . $info . "</td></tr>";
-        }
-        echo "</table>";
-}*/
-
-/*
-<h3>Notes</h3>;
-<p><span class="icon">N</span>Top groove is standard</p>;
-<p><span class="icon">N3</span>bottom groove 15 mm lower</p>;
-<p><span class="icon"><span class="koni2">2</span></span>Number of grooves</p>;
-<p><span class="icon"><span class="koni2">o</span></span>Spring seat adjustment. The figure in the circle = number of grooves.</p>;
-<p><span class="icon"><span class="koni2">f</span></span>Externally adjustable by means of a knob or pin without removing the shock absorbers from the car.</p>;
-<p><span class="icon"><span class="koni2">a</span></span>Gas-charged shock absorber.</p>
-* */

@@ -43,8 +43,6 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         // Get current position of item in RecyclerView to bind data and assign values from list
         MyHolder myHolder= (MyHolder) holder;
         current=amortizators.get(position);
-        //Amortizator current=amortizators.get(position);
-
 
         try {
             myHolder.marka_name.setVisibility(View.VISIBLE);
@@ -87,22 +85,47 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             myHolder.range.setTextColor(Color.parseColor("#FF5300"));
         }else if (current.getRange().contains("Coil")){
             myHolder.range.setTextColor(Color.BLACK);
+        }else  if (current.getRange().equalsIgnoreCase("Classic")){
+            myHolder.range.setTextColor(Color.BLACK);
+        }else  if (current.getRange().equalsIgnoreCase("Heavy Track")){
+            myHolder.range.setTextColor(Color.RED);
         }
 
         myHolder.range.setText(current.getRange());
         myHolder.install.setText(current.getInstall());
 
         if (current.getInfo().equals("")){
+            myHolder.info.setText("");
             myHolder.info.setVisibility(View.GONE);
+            myHolder.iconInfo.setVisibility(View.GONE);
         }else {
+            myHolder.info.setText("");
             myHolder.info.setVisibility(View.GONE);
+            myHolder.iconInfo.setVisibility(View.VISIBLE);
             myHolder.info.setText(current.getInfo());
         }
+
         if (current.getInfo_lowering().equals("")){
+            myHolder.info_lowering.setText("");
             myHolder.info_lowering.setVisibility(View.GONE);
+            myHolder.iconLowering.setVisibility(View.GONE);
+
         }else {
+            myHolder.info_lowering.setText("");
             myHolder.info_lowering.setVisibility(View.GONE);
+            myHolder.iconLowering.setVisibility(View.VISIBLE);
             myHolder.info_lowering.setText(current.getInfo_lowering());
+        }
+
+        if (current.getJpg().equals("")){
+            myHolder.pic.setText("");
+            myHolder.pic.setVisibility(View.GONE);
+            myHolder.iconIMG.setVisibility(View.GONE);
+        }else {
+            myHolder.pic.setText("");
+            myHolder.pic.setVisibility(View.GONE);
+            myHolder.iconIMG.setVisibility(View.VISIBLE);
+            myHolder.pic.setText(current.getJpg());
         }
 
         myHolder.status.setText(current.getStatus());
@@ -116,27 +139,29 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     class MyHolder extends RecyclerView.ViewHolder{
 
-        public TextView carName;
-        public TextView art_number;
-        public TextView model_name;
-        public TextView marka_name;
-        public TextView correction;
-        public TextView year;
-        public TextView range;
-        //public ImageView rangecolor;
-        public TextView install;
-        public TextView info;
-        public TextView info_lowering;
-        public TextView img;
-        public TextView status;
-        public TextView price_euro;
+        private TextView carName;
+        private TextView art_number;
+        private TextView model_name;
+        private TextView marka_name;
+        private TextView correction;
+        private TextView year;
+        private TextView range;
+        private TextView install;
+        private TextView info;
+        private TextView info_lowering;
+        private TextView pic;
+        private TextView status;
+        private TextView price_euro;
+        private ImageView iconInfo;
+        private ImageView iconIMG;
+        private ImageView iconLowering;
+
 
         // create constructor to get widget reference
         @SuppressLint("WrongViewCast")
         public MyHolder(View itemView) {
             super(itemView);
             carName = (TextView) itemView.findViewById(R.id.car_name);
-            //jpg = (ImageView) itemView.findViewById(R.id.jpg);
             art_number = (TextView) itemView.findViewById(R.id.art_number);
             model_name = (TextView) itemView.findViewById(R.id.model_name);
             marka_name = (TextView) itemView.findViewById(R.id.marka_name);
@@ -146,21 +171,26 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             info_lowering = (TextView) itemView.findViewById(R.id.info_lowering);
             install = (TextView) itemView.findViewById(R.id.install);
             info = (TextView) itemView.findViewById(R.id.info);
+            pic = (TextView) itemView.findViewById(R.id.pic);
             status = (TextView) itemView.findViewById(R.id.status);
             price_euro = (TextView) itemView.findViewById(R.id.price_euro);
+            iconInfo = (ImageView) itemView.findViewById(R.id.iconInfo);
+            iconLowering = (ImageView) itemView.findViewById(R.id.iconLowering);
+            iconIMG = (ImageView) itemView.findViewById(R.id.iconIMG);
             //jpg.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast toast1= Toast.makeText(context, "You clicked " + art_number.getText(), Toast.LENGTH_SHORT);
                     //Создаем элемент View заполняем его вид с созданного файла toast.xml:
                     Intent intent=new Intent(context,ToastActivity.class);
                     //Создаем данные для передачи:
                     intent.putExtra("info_lowering", info_lowering.getText().toString());
                     intent.putExtra("info", info.getText().toString());
+                    intent.putExtra("pic", pic.getText().toString());
                     //Запускаем переход:
                     context.startActivity(intent);
                 }
+
             });
         }
     }
