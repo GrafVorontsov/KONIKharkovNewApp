@@ -26,9 +26,11 @@ public class PhoneActivity extends AppCompatActivity {
         ImageView vodafone_view = findViewById(R.id.vodafone);
         ImageView kyivstar_view = findViewById(R.id.kyivstar);
         ImageView lifecell_view = findViewById(R.id.life);
+        ImageView viber_view = findViewById(R.id.viber);
         final String vodafone_number = "+380957164744";
         final String kyivstar_number = "+380977995980";
         final String lifecell_number = "+380667419347";
+        final String viber_number = "+380977995980";
 
         vodafone_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,10 +52,18 @@ public class PhoneActivity extends AppCompatActivity {
                 callByPhone(lifecell_number);
             }
         });
+
+        viber_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callByViber(viber_number);
+            }
+        });
     }
 
     private void callByPhone(String contact_number){
         Intent callIntent = new Intent(Intent.ACTION_CALL);
+        //Intent callIntent = new Intent(Intent.ACTION_);
         callIntent.setData(Uri.parse("tel:" + contact_number));
         try {
             callIntent.setPackage("com.android.phone");
@@ -68,6 +78,14 @@ public class PhoneActivity extends AppCompatActivity {
             }
             startActivity(callIntent);
         }
+    }
+
+    public void callByViber(String sphone) {
+        Uri uri = Uri.parse("tel:" + Uri.encode(sphone));
+        Intent intent = new Intent("android.intent.action.VIEW");
+        intent.setClassName("com.viber.voip", "com.viber.voip.WelcomeActivity");
+        intent.setData(uri);
+        startActivity(intent);
     }
 
     @Override

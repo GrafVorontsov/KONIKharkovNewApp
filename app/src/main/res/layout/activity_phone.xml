@@ -53,6 +53,14 @@
                 android:layout_margin="15dp"
                 app:srcCompat="@drawable/lifecell"
                 android:contentDescription="@string/life" />
+
+            <ImageView
+                android:id="@+id/viber"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="15dp"
+                app:srcCompat="@drawable/viber"
+                android:contentDescription="@string/viber" />
         </LinearLayout>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>
