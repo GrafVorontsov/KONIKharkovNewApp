@@ -14,5 +14,14 @@
     <string name="main_page">Каталог</string>
     <string name="call_page">Звонок менеджеру</string>
     <string name="title_call">Выберите, какой оператор вам удобнее</string>
-
+    <string name="year">год</string>
+    <string name="status">статус</string>
+    <string name="range">диапазон</string>
+    <string name="price">цена</string>
+    <string name="install">установка</string>
+    <string name="marka">Марка</string>
+    <string name="vodafone">водафон</string>
+    <string name="kyivstar">киевстар</string>
+    <string name="life">лайф</string>
+    <string name="viber">вайбер</string>
 </resources>

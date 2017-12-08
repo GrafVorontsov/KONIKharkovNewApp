@@ -3,6 +3,7 @@ package ua.kharkov.koni.konikharkov;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,27 +12,33 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+//класс для работы с телефонами
 public class PhoneActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+        getScreenOrientation(); //меняем активити в зависимости от ориентации экрана
 
+        //добавляем кнопку назад и устанавливаем title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Телефоны для связи");
         }
 
+        //view для каждого номера
         ImageView vodafone_view = findViewById(R.id.vodafone);
         ImageView kyivstar_view = findViewById(R.id.kyivstar);
         ImageView lifecell_view = findViewById(R.id.life);
         ImageView viber_view = findViewById(R.id.viber);
-        final String vodafone_number = "+380957164744";
+
+        //номера для связи
+        final String vodafone_number = "+380667419347";
         final String kyivstar_number = "+380977995980";
         final String lifecell_number = "+380667419347";
-        final String viber_number = "+380977995980";
+        final String viber_number = "+380503641315";
 
+        //вешаем слушатель на каждый view с функцией звонка
         vodafone_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,9 +68,9 @@ public class PhoneActivity extends AppCompatActivity {
         });
     }
 
+    //метод совершения телефонного звонка
     private void callByPhone(String contact_number){
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        //Intent callIntent = new Intent(Intent.ACTION_);
         callIntent.setData(Uri.parse("tel:" + contact_number));
         try {
             callIntent.setPackage("com.android.phone");
@@ -80,6 +87,7 @@ public class PhoneActivity extends AppCompatActivity {
         }
     }
 
+    //метод для звонка в Viber
     public void callByViber(String sphone) {
         Uri uri = Uri.parse("tel:" + Uri.encode(sphone));
         Intent intent = new Intent("android.intent.action.VIEW");
@@ -88,6 +96,7 @@ public class PhoneActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //заставляем кнопку home работать как надо
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -95,7 +104,15 @@ public class PhoneActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             onBackPressed();  return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    //метод для загрузки другого активити в зависимости от ориентации экрана
+    private void getScreenOrientation() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setContentView(R.layout.activity_phone);
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_phone_landscape);
+        }
     }
 }

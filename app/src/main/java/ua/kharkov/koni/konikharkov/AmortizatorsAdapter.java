@@ -186,6 +186,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     intent.putExtra("info_lowering", info_lowering.getText().toString());
                     intent.putExtra("info", info.getText().toString());
                     intent.putExtra("pic", pic.getText().toString());
+                    intent.putExtra("num", art_number.getText().toString());
                     //Запускаем переход:
                     context.startActivity(intent);
                 }

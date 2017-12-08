@@ -23,9 +23,11 @@ public class AboutActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        //mToggle = new ActionBar();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Информация");
+        //добавляем кнопку назад и устанавливаем title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Информация");
+        }
 
         Element versionElement = new Element();
         versionElement.setTitle("Version 1.0");
@@ -35,7 +37,7 @@ public class AboutActivity extends AppCompatActivity{
                 .setDescription("Оффициальный каталог амортизаторов KONI Украина в городе Харьков")
                 .setImage(R.drawable.logo)
                 .addItem(versionElement)
-                .addEmail("koni.kharkov@gmail.com")
+                .addEmail("koni.kharkov@gmail.com", "Напишите нам")
                 .addWebsite("koni.kharkov.ua")
                 .addFacebook("profile.php?id=100001746039121")
                 .addItem(getCopyRightsElement())

@@ -28,67 +28,64 @@
         android:paddingTop="10dp"
         tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:text="@string/selection_of_absorbers"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
-
-        <Spinner
-            android:id="@+id/spinner_marka"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:background="#EEEEEE"
-            android:spinnerMode="dialog"
-            android:textSize="25sp" />
+            android:layout_height="match_parent">
 
-        <Spinner
-            android:id="@+id/spinner_model"
-            android:layout_width="match_parent"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/spinner_marka"
-            android:layout_marginBottom="5dp"
-            android:background="#EEEEEE"
-            android:spinnerMode="dialog"
-            android:textSize="25sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-        <Spinner
-            android:id="@+id/spinner_car"
-            android:layout_width="match_parent"
-            android:layout_height="@android:dimen/notification_large_icon_height"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/spinner_model"
-            android:background="#EEEEEE"
-            android:spinnerMode="dialog"
-            android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/selection_of_absorbers"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/spinner_car"
-            android:contentDescription="@string/app_name"
-            app:srcCompat="@drawable/logo" />
+                <Spinner
+                    android:id="@+id/spinner_marka"
+                    android:layout_width="match_parent"
+                    android:layout_height="@android:dimen/notification_large_icon_height"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#EEEEEE"
+                    android:spinnerMode="dialog"
+                    android:textSize="25sp" />
 
+                <Spinner
+                    android:id="@+id/spinner_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="@android:dimen/notification_large_icon_height"
+                    android:layout_marginBottom="5dp"
+                    android:background="#EEEEEE"
+                    android:spinnerMode="dialog"
+                    android:textSize="25sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="@android:dimen/notification_large_icon_height"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/spinner_model"
+                    android:background="#EEEEEE"
+                    android:spinnerMode="dialog"
+                    android:textSize="25sp" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/app_name"
+                    app:srcCompat="@drawable/logo" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
@@ -105,6 +102,6 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:drawSelectorOnTop="false"
-        app:menu="@menu/drawer_menu"></android.support.design.widget.NavigationView>
+        app:menu="@menu/drawer_menu" />
     <!-- The navigation drawer -->
 </android.support.v4.widget.DrawerLayout>
