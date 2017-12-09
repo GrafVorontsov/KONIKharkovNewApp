@@ -107,7 +107,7 @@
                             android:background="#FFFFFF"
                             android:paddingBottom="@dimen/cardview_default_radius"
                             android:paddingLeft="15dp"
-                            android:paddingRight="5dp"
+                            android:paddingEnd="5dp"
                             android:paddingStart="15dp"
                             android:text="Correction"
                             android:textColor="#333F48"
@@ -119,24 +119,27 @@
                             tools:ignore="HardcodedText"
                             tools:layout_editor_absoluteY="6dp"
                             android:layout_marginRight="75dp"
-                            android:layout_marginLeft="8dp" />
+                            android:layout_marginLeft="8dp"
+                            android:paddingRight="5dp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
                         android:layout_marginTop="8dp"
                         android:layout_weight="1"
                         android:baselineAligned="false"
                         android:maxWidth="50dp"
                         android:minWidth="20dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginRight="5dp">
 
                         <ImageView
                             android:id="@+id/iconInfo"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_weight="1"
                             android:baseline="10dp"
                             android:contentDescription="@string/info"
@@ -147,7 +150,7 @@
                             android:id="@+id/iconLowering"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_weight="1"
                             android:baseline="10dp"
                             android:contentDescription="@string/info"
@@ -160,7 +163,7 @@
                             android:id="@+id/iconIMG"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_weight="1"
                             android:baseline="10dp"
                             android:contentDescription="@string/info"
@@ -173,7 +176,7 @@
                             android:id="@+id/iconPDF"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="right"
+                            android:layout_gravity="end"
                             android:layout_weight="1"
                             android:baseline="10dp"
                             android:contentDescription="@string/info"
@@ -279,14 +282,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/np"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -294,7 +289,7 @@
 
                     <TextView
                         android:id="@+id/art_number"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:layout_weight="1"
@@ -307,7 +302,7 @@
 
                     <TextView
                         android:id="@+id/price_euro"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
 

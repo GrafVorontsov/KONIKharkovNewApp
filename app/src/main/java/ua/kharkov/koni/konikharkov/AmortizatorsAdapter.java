@@ -1,12 +1,10 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,15 +178,20 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Создаем элемент View заполняем его вид с созданного файла toast.xml:
-                    Intent intent=new Intent(context,ToastActivity.class);
-                    //Создаем данные для передачи:
-                    intent.putExtra("info_lowering", info_lowering.getText().toString());
-                    intent.putExtra("info", info.getText().toString());
-                    intent.putExtra("pic", pic.getText().toString());
-                    intent.putExtra("num", art_number.getText().toString());
-                    //Запускаем переход:
-                    context.startActivity(intent);
+                    if (info.getText().toString().equals("") && info_lowering.getText().toString().equals("") && pic.getText().toString().equals("")){
+                        Toast.makeText(context, R.string.no_info, Toast.LENGTH_SHORT).show();
+                    }else{
+
+                        //Создаем элемент View заполняем его вид с созданного файла toast.xml:
+                        Intent intent=new Intent(context,ToastActivity.class);
+                        //Создаем данные для передачи:
+                        intent.putExtra("info_lowering", info_lowering.getText().toString());
+                        intent.putExtra("info", info.getText().toString());
+                        intent.putExtra("pic", pic.getText().toString());
+                        intent.putExtra("num", art_number.getText().toString());
+                        //Запускаем переход:
+                        context.startActivity(intent);
+                    }
                 }
 
             });

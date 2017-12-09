@@ -55,7 +55,9 @@ public class ToastActivity extends AppCompatActivity {
 
             if (info.equals(null) || info.equals("")) {
                 linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
+                linearLayout.setVisibility(View.GONE);
             } else {
+                linearLayout.setVisibility(View.VISIBLE);
                 fillData();
             }
         } catch (Exception e) {

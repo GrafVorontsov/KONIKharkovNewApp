@@ -20,31 +20,7 @@ public class Amortizator implements Serializable {
     private String status;
     private String price_euro;
 
-    public Amortizator(String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String status, String price_euro) {
-        this.id = id;
-        this.marka_name = marka_name;
-        this.model_name = model_name;
-        this.car_name = car_name;
-        this.correction = correction;
-        this.year = year;
-        this.range = range;
-        this.install = install;
-        this.art_number = art_number;
-        this.status = status;
-        this.price_euro = price_euro;
-    }
-
-    public Amortizator(int id, String marka_name, String model_name, String car_name, String art_number, String price_euro) {
-        this.id = id;
-        this.marka_name = marka_name;
-        this.model_name = model_name;
-        this.car_name = car_name;
-        this.art_number = art_number;
-        this.price_euro = price_euro;
-
-    }
-
-    public Amortizator(String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String info, String info_lowering, String jpg, String pdf, String status, String price_euro) {
+    Amortizator(String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String info, String info_lowering, String jpg, String pdf, String status, String price_euro) {
         this.marka_name = marka_name;
         this.model_name = model_name;
         this.car_name = car_name;
@@ -69,31 +45,31 @@ public class Amortizator implements Serializable {
         this.id = id;
     }
 
-    public String getMarka_name() {
+    String getMarka_name() {
         return marka_name.toUpperCase().charAt(0) + marka_name.substring(1);
     }
 
-    public void setMarka_name(String marka_name) {
+    void setMarka_name(String marka_name) {
         this.marka_name = marka_name;
     }
 
-    public String getModel_name() {
+    String getModel_name() {
         return model_name.toUpperCase().charAt(0) + model_name.substring(1);
     }
 
-    public void setModel_name(String model_name) {
+    void setModel_name(String model_name) {
         this.model_name = model_name;
     }
 
-    public String getCar_name() {
+    String getCar_name() {
         return car_name;
     }
 
-    public void setCar_name(String car_name) {
+    void setCar_name(String car_name) {
         this.car_name = car_name;
     }
 
-    public String getCorrection() {
+    String getCorrection() {
         return correction;
     }
 
@@ -109,7 +85,7 @@ public class Amortizator implements Serializable {
         this.year = year;
     }
 
-    public String getRange() {
+    String getRange() {
         return range;
     }
 
@@ -117,7 +93,7 @@ public class Amortizator implements Serializable {
         this.range = range;
     }
 
-    public String getInstall() {
+    String getInstall() {
         return install;
     }
 
@@ -125,7 +101,7 @@ public class Amortizator implements Serializable {
         this.install = install;
     }
 
-    public String getArt_number() {
+    String getArt_number() {
         return art_number;
     }
 
@@ -141,7 +117,7 @@ public class Amortizator implements Serializable {
         this.info = info;
     }
 
-    public String getInfo_lowering() {
+    String getInfo_lowering() {
         return info_lowering;
     }
 
@@ -149,7 +125,7 @@ public class Amortizator implements Serializable {
         this.info_lowering = info_lowering;
     }
 
-    public String getJpg() {
+    String getJpg() {
         return jpg;
     }
 
@@ -165,7 +141,7 @@ public class Amortizator implements Serializable {
         this.pdf = pdf;
     }
 
-    public String getStatus() {
+    String getStatus() {
         return status;
     }
 
@@ -173,11 +149,11 @@ public class Amortizator implements Serializable {
         this.status = status;
     }
 
-    public String getPrice_euro() {
+    String getPrice_euro() {
         return price_euro;
     }
 
-    public void setPrice_euro(String price_euro) {
+    void setPrice_euro(String price_euro) {
         this.price_euro = price_euro;
     }
 }

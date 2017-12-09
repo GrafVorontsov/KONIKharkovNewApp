@@ -25,4 +25,5 @@
     <string name="kyivstar">kyivstar</string>
     <string name="life">life</string>
     <string name="viber">viber</string>
+    <string name="no_info">No iformation for this number</string>
 </resources>

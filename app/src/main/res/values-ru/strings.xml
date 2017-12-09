@@ -24,4 +24,5 @@
     <string name="kyivstar">киевстар</string>
     <string name="life">лайф</string>
     <string name="viber">вайбер</string>
+    <string name="no_info">Нет информации по этому номеру</string>
 </resources>
