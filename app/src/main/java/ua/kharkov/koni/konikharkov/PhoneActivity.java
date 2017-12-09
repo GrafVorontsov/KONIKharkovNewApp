@@ -33,9 +33,9 @@ public class PhoneActivity extends AppCompatActivity {
         ImageView viber_view = findViewById(R.id.viber);
 
         //номера для связи
-        final String vodafone_number = "+380667419347";
-        final String kyivstar_number = "+380977995980";
-        final String lifecell_number = "+380667419347";
+        final String vodafone_number = "+380503641315";
+        final String kyivstar_number = "+380973111100";
+        final String lifecell_number = "+380733641315";
         final String viber_number = "+380503641315";
 
         //вешаем слушатель на каждый view с функцией звонка
@@ -70,20 +70,12 @@ public class PhoneActivity extends AppCompatActivity {
 
     //метод совершения телефонного звонка
     private void callByPhone(String contact_number){
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + contact_number));
+
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + contact_number));
         try {
-            callIntent.setPackage("com.android.phone");
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            startActivity(callIntent);
-        } catch (Exception e) {
-            callIntent.setPackage("com.android.server.telecom");
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            startActivity(callIntent);
+            startActivity(intent);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
