@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +23,13 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private LayoutInflater inflater;
     private List<Amortizator> amortizators;
     private Amortizator current;
+    private DB db;
 
     AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
         this.context = context;
         inflater= LayoutInflater.from(context);
         this.amortizators = amortizators;
+        db = new DB(context);
     }
 
     @Override
@@ -72,10 +77,26 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         myHolder.year.setText(current.getYear());
         myHolder.art_number.setText(current.getArt_number());
 
+        db.open();
+
+        try {
+            String columnNumber = db.selectNMBR(current.getArt_number());
+
+            if (current.getArt_number().equals(columnNumber)){
+                myHolder.favoritestar.setVisibility(View.VISIBLE);
+            }else {
+                myHolder.favoritestar.setVisibility(View.GONE);
+            }
+        }catch (Exception np){
+            np.printStackTrace();
+        }finally {
+            db.close();
+        }
+
         if ((current.getRange().contains("Sport"))||(current.getRange().equalsIgnoreCase("Sport Kit"))) {
             myHolder.range.setTextColor(Color.parseColor("#FFBA00"));
-        }else if (current.getRange().contains("FSD")){
-            myHolder.range.setTextColor(Color.parseColor("#D4AF37"));
+        }else if (current.getRange().contains("Special-Active")){
+            myHolder.range.setTextColor(Color.RED);
         }else if (current.getRange().contains("Special")){
             myHolder.range.setTextColor(Color.RED);
         }else if (current.getRange().contains("STR.T")){
@@ -152,6 +173,8 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private ImageView iconInfo;
         private ImageView iconIMG;
         private ImageView iconLowering;
+        private LinearLayout bgr;
+        private ImageView favoritestar;
 
         // create constructor to get widget reference
         @SuppressLint("WrongViewCast")
@@ -173,36 +196,109 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             iconInfo = itemView.findViewById(R.id.iconInfo);
             iconLowering = itemView.findViewById(R.id.iconLowering);
             iconIMG = itemView.findViewById(R.id.iconIMG);
+            bgr = itemView.findViewById(R.id.bgr);
+            favoritestar = itemView.findViewById(R.id.favoritestar);
 
             //вешаем слушатель на карточку товара
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (info.getText().toString().equals("") && info_lowering.getText().toString().equals("") && pic.getText().toString().equals("")){
-                        Toast.makeText(context, R.string.no_info, Toast.LENGTH_SHORT).show();
-                    }else{
-
-                        //Создаем элемент View заполняем его вид с созданного файла toast.xml:
-                        Intent intent=new Intent(context,ToastActivity.class);
-                        //Создаем данные для передачи:
-                        intent.putExtra("info_lowering", info_lowering.getText().toString());
-                        intent.putExtra("info", info.getText().toString());
-                        intent.putExtra("pic", pic.getText().toString());
-                        intent.putExtra("num", art_number.getText().toString());
-                        //Запускаем переход:
-                        context.startActivity(intent);
-                    }
+                    intentInfo(context,
+                                carName,
+                                art_number,
+                                model_name,
+                                marka_name,
+                                correction,
+                                year,
+                                range,
+                                install,
+                                info,
+                                info_lowering,
+                                pic,
+                                status,
+                                price_euro,
+                                iconInfo,
+                                iconIMG,
+                                iconLowering,
+                                favoritestar);
                 }
 
             });
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
+
                 @Override
                 public boolean onLongClick(View view) {
-                    Toast.makeText(context, "is added to favourite", Toast.LENGTH_SHORT).show();
+                    // получаем данные из полей ввода
+                    String n_umber = art_number.getText().toString();
+                    String i_nstall = install.getText().toString();
+                    String p_rice = price_euro.getText().toString();
+                    String r_ange = range.getText().toString();
+                    String s_tatus = status.getText().toString();
+
+                    Log.i("AMORT ", current.getArt_number());
+
+                    // подключаемся к БД
+                    db = new DB(context);
+                    db.open();
+
+                    try {
+                        String columnNumber = db.selectNMBR(n_umber);
+
+                        if (n_umber.equals(columnNumber)){
+
+                            Long id = Long.valueOf(db.selectID(n_umber));
+                            db.delRec(id);
+                            favoritestar.setVisibility(View.GONE);
+                            Toast.makeText(context, "Удалено из избранного", Toast.LENGTH_SHORT).show();
+                        }else{
+                            db.insertFavorites(n_umber, i_nstall, p_rice, r_ange, s_tatus);
+                            favoritestar.setVisibility(View.VISIBLE);
+                            Toast.makeText(context, "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception np){
+                        np.printStackTrace();
+                    }finally {
+                        db.close();
+                    }
                     return true;
                 }
             });
+
+        }
+    }
+
+    private static void intentInfo(Context context,
+                                   TextView carName,
+                                   TextView art_number,
+                                   TextView model_name,
+                                   TextView marka_name,
+                                   TextView correction,
+                                   TextView year,
+                                   TextView range,
+                                   TextView install,
+                                   TextView info,
+                                   TextView info_lowering,
+                                   TextView pic,
+                                   TextView status,
+                                   TextView price_euro,
+                                   ImageView iconInfo,
+                                   ImageView iconIMG,
+                                   ImageView iconLowering,
+                                   ImageView favoritestar){
+        if (info.getText().toString().equals("") && info_lowering.getText().toString().equals("") && pic.getText().toString().equals("")){
+            Toast.makeText(context, R.string.no_info, Toast.LENGTH_SHORT).show();
+        }else{
+
+            //Создаем элемент View заполняем его вид с созданного файла toast.xml:
+            Intent intent=new Intent(context,ToastActivity.class);
+            //Создаем данные для передачи:
+            intent.putExtra("info_lowering", info_lowering.getText().toString());
+            intent.putExtra("info", info.getText().toString());
+            intent.putExtra("pic", pic.getText().toString());
+            intent.putExtra("num", art_number.getText().toString());
+            //Запускаем переход:
+            context.startActivity(intent);
         }
     }
 }

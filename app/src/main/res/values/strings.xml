@@ -4,7 +4,7 @@
     <string name="search_view_hint">Enter part number&#8230;</string>
     <string name="get_brand">Select brand</string>
     <string name="get_model">Select model</string>
-    <string name="get_auto">Select auto</string>
+    <string name="get_auto">Select type</string>
     <string name="selection_of_absorbers">SELECTION OF ABSORBERS IN THE CATALOG</string>
     <string name="no_internet_connection">No connection to the internet.</string>
     <string name="information_not_found">Information on the part number not found.</string>
@@ -26,4 +26,11 @@
     <string name="life">life</string>
     <string name="viber">viber</string>
     <string name="no_info">No iformation for this number</string>
+    <string name="clear">Clear</string>
+    <string name="favourites">Favourites</string>
+    <string name="fones">Phones for call</string>
+    <string name="title_activity_card_favorites">card_favorites</string>
+    <string name="delete">Delete</string>
+    <string name="kharkov">Kharkov</string>
+
 </resources>

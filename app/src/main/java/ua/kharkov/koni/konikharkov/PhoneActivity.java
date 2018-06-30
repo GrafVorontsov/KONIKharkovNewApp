@@ -23,7 +23,7 @@ public class PhoneActivity extends AppCompatActivity {
         //добавляем кнопку назад и устанавливаем title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Телефоны для связи");
+            getSupportActionBar().setTitle(R.string.fones);
         }
 
         //view для каждого номера
@@ -96,6 +96,14 @@ public class PhoneActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             onBackPressed();  return true;
         }
+
+        if (id == R.id.menu_fav) {
+
+            Intent intent = new Intent(this,Favourites.class);
+            this.startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

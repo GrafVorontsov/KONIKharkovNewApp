@@ -4,7 +4,7 @@
     <string name="search_view_hint">Введите номер детали&#8230;</string>
     <string name="get_brand">Выберите марку</string>
     <string name="get_model">Выберите модель</string>
-    <string name="get_auto">Выберите авто</string>
+    <string name="get_auto">Выберите модификацию</string>
     <string name="selection_of_absorbers">ПОДБОР АМОРТИЗАТОРОВ ПО КАТАЛОГУ</string>
     <string name="no_internet_connection">Нет подключения к интернету</string>
     <string name="information_not_found">Информации по данному номеру детали не найдено.</string>
@@ -25,4 +25,9 @@
     <string name="life">лайф</string>
     <string name="viber">вайбер</string>
     <string name="no_info">Нет информации по этому номеру</string>
+    <string name="clear">Очистить</string>
+    <string name="favourites">Избранное</string>
+    <string name="fones">Телефоны для связи</string>
+    <string name="delete">Удалить</string>
+    <string name="kharkov">Харьков</string>
 </resources>

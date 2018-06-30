@@ -9,22 +9,26 @@
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/small_logo" />
+        android:src="@drawable/small_logo"
+        android:contentDescription="logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="22dp"
+        android:layout_marginTop="8dp"
         android:text="KONI"
         android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginStart="22dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:layout_marginLeft="11dp"
-        android:text="Харьков"
+        android:layout_marginTop="2dp"
+        android:text="@string/kharkov"
         android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginStart="11dp" />
 </LinearLayout>

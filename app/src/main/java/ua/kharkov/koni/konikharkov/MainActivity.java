@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends SearchMenuActivity{
+    private Button clear_button;
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
@@ -50,6 +52,7 @@ public class MainActivity extends SearchMenuActivity{
     private String allTypesIds;
     private String id;
     private String selected;
+    private Double kurs;
 
     private List<Amortizator> amortizators;
     private String whatFor;
@@ -70,6 +73,7 @@ public class MainActivity extends SearchMenuActivity{
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        /*боковая панель меню*/
         myDrawerList = findViewById(R.id.navdrawer);
 
         myDrawerList.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -78,6 +82,11 @@ public class MainActivity extends SearchMenuActivity{
                 int itemId = item.getItemId();
                 switch (itemId) {
                     case R.id.main:
+                        mDrawerLayout.closeDrawers();
+                        break;
+                    case R.id.favourites:
+                        Intent fav = new Intent(getApplicationContext(), Favourites.class);
+                        startActivity(fav);
                         mDrawerLayout.closeDrawers();
                         break;
                     case R.id.call:
@@ -122,6 +131,8 @@ public class MainActivity extends SearchMenuActivity{
             }
         });
 
+        clear_button = findViewById(R.id.clear_button);
+
         amortizators = new ArrayList<>();
 
         final List<String> markas = new ArrayList<>();
@@ -136,6 +147,26 @@ public class MainActivity extends SearchMenuActivity{
         carAdapter = new ArrayAdapter<>(MainActivity.this, R.layout.spinner_textview, cars);
         carAdapter.setNotifyOnChange(true);
 
+        try {
+            clear_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    modelAdapter.clear(); //очистка спинера модели
+                    carAdapter.clear();  //очистка спинера автомобилей
+                    markaAdapter.clear();
+                    try {
+                        getConnectionForSpinners("marka", Config.MARKA_URL, "null");
+                        clear_button.setVisibility(View.GONE);
+                    }catch (Exception x){
+                        x.printStackTrace();
+                    }
+
+                }
+            });
+        }catch (Exception r){
+            r.printStackTrace();
+        }
+
         //спиннер для марок
         final Spinner spinner_marka = findViewById(R.id.spinner_marka);
         spinner_marka.setAdapter(markaAdapter);
@@ -149,6 +180,7 @@ public class MainActivity extends SearchMenuActivity{
                 modelAdapter.clear(); //очистка спинера модели
                 carAdapter.clear();  //очистка спинера автомобилей
                 modelAdapter.addAll(models);   //заполняем спиннер модели данными
+
             }
 
             @Override
@@ -170,6 +202,7 @@ public class MainActivity extends SearchMenuActivity{
                 getConnectionForSpinners("cars", Config.CAR_URL, model_id); //создаём соединение с БД
                 carAdapter.clear(); //очистка спинера автомобилей
                 carAdapter.addAll(cars); //заполняем спиннер автомобилей данными
+                clear_button.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -198,7 +231,11 @@ public class MainActivity extends SearchMenuActivity{
         });
 
         //Получение данных для списка марок автомобилей
-        getConnectionForSpinners("marka", Config.MARKA_URL, "null");
+        try {
+            getConnectionForSpinners("marka", Config.MARKA_URL, "null");
+        }catch (Exception m){
+            m.printStackTrace();
+        }
     }
 
     private void getConnectionForSpinners(String what, String URL, String id){
@@ -327,9 +364,7 @@ public class MainActivity extends SearchMenuActivity{
         String car_bool = "";
 
         try {
-            int kurs;
-
-            kurs = rates.getJSONObject(0).getInt("KURS_EURO");
+            kurs = rates.getJSONObject(0).getDouble("KURS_EURO");
 
             for (int i = 0; i < cars.length(); i++) {
 
@@ -377,7 +412,8 @@ public class MainActivity extends SearchMenuActivity{
                 }
 
                 String pr_euro = amortizator.getPrice_euro();
-
+                //Log.i("PRICE EURO", "pr_euro " + pr_euro);
+                //Log.i("KURS", "kurs " + kurs);
                 try {
 
                     String price = String.valueOf(Math.round(Double.parseDouble(pr_euro) * kurs));
@@ -432,6 +468,15 @@ public class MainActivity extends SearchMenuActivity{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_fav) {
+
+            Intent intent = new Intent(this,Favourites.class);
+            this.startActivity(intent);
+            return true;
+        }
+
         return mToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 

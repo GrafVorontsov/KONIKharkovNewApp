@@ -1,5 +1,6 @@
 package ua.kharkov.koni.konikharkov;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,7 +23,7 @@ public class AboutActivity extends AppCompatActivity{
         //добавляем кнопку назад и устанавливаем title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Информация");
+            getSupportActionBar().setTitle(R.string.info);
         }
 
         Element versionElement = new Element();
@@ -30,12 +31,14 @@ public class AboutActivity extends AppCompatActivity{
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
-                .setDescription("Оффициальный каталог амортизаторов KONI Украина в городе Харьков")
+                .setDescription("Каталог амортизаторов KONI Украина в городе Харьков")
                 .setImage(R.drawable.logo)
                 .addItem(versionElement)
                 .addEmail("koni.kharkov@gmail.com", "Напишите нам")
                 .addWebsite("koni.kharkov.ua")
                 .addFacebook("profile.php?id=100001746039121")
+                .addInstagram("koni.kharkov.ua")
+                .addYoutube("UCjZDLB7HsSS8F8_HEjbusEQ")
                 .addItem(getCopyRightsElement())
                 .create();
         setContentView(aboutPage);
@@ -64,6 +67,13 @@ public class AboutActivity extends AppCompatActivity{
 
         if (id == android.R.id.home) {
             onBackPressed();  return true;
+        }
+
+        if (id == R.id.menu_fav) {
+
+            Intent intent = new Intent(this,Favourites.class);
+            this.startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

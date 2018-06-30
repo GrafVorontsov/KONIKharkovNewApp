@@ -3,6 +3,7 @@ package ua.kharkov.koni.konikharkov;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class SearchActivity extends SearchMenuActivity {
     private List<Amortizator> amortizators;
     private AmortizatorsAdapter adapter;
     RecyclerView recyclerView;
+    private Double kurs;
 
     public static Intent newIntentShowAbsorbers(Context packageContext, List<Amortizator> absorbers){
         Intent intent = new Intent(packageContext, SearchActivity.class);
@@ -48,9 +50,9 @@ public class SearchActivity extends SearchMenuActivity {
         setContentView(R.layout.activity_search);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView = findViewById(R.id.recyclerview);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 1);  //(объект, количество колонок)
         recyclerView.setLayoutManager(gridLayout);
 
@@ -100,8 +102,9 @@ public class SearchActivity extends SearchMenuActivity {
     }
 
     public void getData(String newText) {
+        String searchString = newText.replaceAll("[^A-Za-z0-9]", ""); // удалится все кроме букв и цифр;
         //формируем url для запроса
-        String url = Config.SEARCH_URL + newText;
+        String url = Config.SEARCH_URL + searchString;
         //making the progressbar visible
         progressBar.setVisibility(View.VISIBLE);
 
@@ -142,9 +145,7 @@ public class SearchActivity extends SearchMenuActivity {
 
             JSONArray rates = src.getJSONArray("rates");
 
-            int kurs;
-
-            kurs = rates.getJSONObject(0).getInt("KURS_EURO");
+            kurs = rates.getJSONObject(0).getDouble("KURS_EURO");
 
             for (int i = 0; i < cars.length(); i++) {
 
@@ -222,6 +223,13 @@ public class SearchActivity extends SearchMenuActivity {
 
         if (id == android.R.id.home) {
             onBackPressed();  return true;
+        }
+
+        if (id == R.id.menu_fav) {
+
+            Intent intent = new Intent(this,Favourites.class);
+            this.startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
