@@ -300,6 +300,21 @@
                         card_view:layout_constraintBottom_toBottomOf="parent"
                         card_view:srcCompat="@drawable/favoritestar"
                         android:layout_marginStart="5dp" />
+                    <ImageView
+                        android:id="@+id/favoritestar_unchecked"
+                        android:layout_width="33dp"
+                        android:layout_height="33dp"
+                        android:layout_gravity="end"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="0"
+                        android:contentDescription="@string/info"
+                        android:foregroundGravity="center"
+                        android:longClickable="true"
+                        android:paddingTop="7dp"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                        card_view:srcCompat="@drawable/favoritestar_outline"
+                        android:layout_marginStart="5dp" />
 
                     <TextView
                         android:id="@+id/art_number"
