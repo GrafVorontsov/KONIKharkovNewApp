@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +21,21 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private LayoutInflater inflater;
     private List<Amortizator> amortizators;
     private Amortizator current;
-    private DB db;
+    private String tempMarka;
+    private String tempModel;
+    private String tempCar;
+
+    private AmortizatorDao mAmortizatorDao;
+
+    DaoSession daoSession;
 
     AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
         this.context = context;
         inflater= LayoutInflater.from(context);
         this.amortizators = amortizators;
-        db = new DB(context);
+
+        daoSession = DaoHelper.getInstance(context).getDaoSession();
+        mAmortizatorDao = daoSession.getAmortizatorDao();
     }
 
     @Override
@@ -43,28 +49,40 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         // Get current position of item in RecyclerView to bind data and assign values from list
-        MyHolder myHolder= (MyHolder) holder;
-        current=amortizators.get(position);
+        MyHolder myHolder = (MyHolder) holder;
+        current = amortizators.get(position);
 
         try {
-            myHolder.marka_name.setVisibility(View.VISIBLE);
             myHolder.marka_name.setText(current.getMarka_name());
+            myHolder.marka_name.setVisibility(View.VISIBLE);
+            tempMarka = current.getMarka_name();
         }catch (StringIndexOutOfBoundsException e){
             myHolder.marka_name.setVisibility(View.GONE);
         }
 
         try {
-            myHolder.model_name.setVisibility(View.VISIBLE);
             myHolder.model_name.setText(current.getModel_name());
+            myHolder.model_name.setVisibility(View.VISIBLE);
+            tempModel = current.getModel_name();
         }catch (StringIndexOutOfBoundsException e){
             myHolder.model_name.setVisibility(View.GONE);
         }
+/*
+        try {
+            myHolder.carName.setText(current.getCar_name());
+            myHolder.carName.setVisibility(View.VISIBLE);
+            tempCar = current.getCar_name();
+        }catch (StringIndexOutOfBoundsException e){
+            myHolder.carName.setVisibility(View.GONE);
+        }
+*/
 
         if (current.getCar_name().equals("")){
             myHolder.carName.setVisibility(View.GONE);
         }else {
             myHolder.carName.setVisibility(View.VISIBLE);
             myHolder.carName.setText(current.getCar_name());
+            tempCar = current.getCar_name();
         }
 
         if (current.getCorrection().equals("")){
@@ -77,22 +95,19 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         myHolder.year.setText(current.getYear());
         myHolder.art_number.setText(current.getArt_number());
 
-        db.open();
-
         try {
-            String columnNumber = db.selectNMBR(current.getArt_number());
-
-            if (current.getArt_number().equals(columnNumber)){
+            if (mAmortizatorDao.queryBuilder()
+                    .where(AmortizatorDao.Properties.Art_number
+                            .eq(current.getArt_number())).list().size()!=0){
                 myHolder.favoritestar.setVisibility(View.VISIBLE);
                 myHolder.favoritestar_unchecked.setVisibility(View.GONE);
             }else {
                 myHolder.favoritestar.setVisibility(View.GONE);
                 myHolder.favoritestar_unchecked.setVisibility(View.VISIBLE);
+
             }
         }catch (Exception np){
             np.printStackTrace();
-        }finally {
-            db.close();
         }
 
         if ((current.getRange().contains("Sport"))||(current.getRange().equalsIgnoreCase("Sport Kit"))) {
@@ -178,8 +193,16 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         private ImageView favoritestar;
         private ImageView favoritestar_unchecked;
 
+        private String marka_nameText;
+        private String model_nameText;
+        private String carNameText;
+        private String correctionText;
+        private String yearText;
         private String art_numberText;
         private String installText;
+        private String infoText;
+        private String info_loweringText;
+        private String picText;
         private String price_euroText;
         private String rangeText;
         private String statusText;
@@ -214,9 +237,9 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     intentInfo(context, art_number, info, info_lowering, pic);}
             });
 
-            favoritestar_unchecked.setOnClickListener(clickOnStar());
+            favoritestar_unchecked.setOnClickListener(clickOnStarGreen());
 
-            favoritestar.setOnClickListener(clickOnStar());
+            favoritestar.setOnClickListener(clickOnStarDelete());
         }
 
         private void intentInfo(Context context,
@@ -240,49 +263,86 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         }
 
-        private View.OnClickListener clickOnStar(){
+        private View.OnClickListener clickOnStarGreen(){
             return new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
                     // получаем данные из полей ввода
+                    marka_nameText = marka_name.getText().toString();
+                    model_nameText = model_name.getText().toString();
                     art_numberText = art_number.getText().toString();
+                    carNameText = carName.getText().toString();
+                    picText = pic.getText().toString();
+                    yearText = year.getText().toString();
+                    info_loweringText = info_lowering.getText().toString();
+                    infoText = info.getText().toString();
+                    correctionText = correction.getText().toString();
                     installText = install.getText().toString();
                     price_euroText = price_euro.getText().toString();
                     rangeText = range.getText().toString();
                     statusText = status.getText().toString();
-                    // подключаемся к БД
-                    db = new DB(context);
-                    db.open();
+
+                    if (marka_nameText.equals("Marka")){
+                        marka_nameText = tempMarka;
+                    }
+                    if (model_nameText.equals("Model")){
+                        model_nameText = tempModel;
+                    }
+                    if (carNameText.equals("Car")){
+                        carNameText = tempCar;
+                    }
+                    if (correctionText.equals("Correction")){
+                        correctionText = "";
+                    }
+
+                    Amortizator amortizator = new Amortizator();
+                    amortizator.setMarka_name(marka_nameText);
+                    amortizator.setModel_name(model_nameText);
+                    amortizator.setCar_name(carNameText);
+                    amortizator.setCorrection(correctionText);
+                    amortizator.setArt_number(art_numberText);
+                    amortizator.setYear(yearText);
+                    amortizator.setRange(rangeText);
+                    amortizator.setInfo(infoText);
+                    amortizator.setInfo_lowering(info_loweringText);
+                    amortizator.setPrice_euro(price_euroText);
+                    amortizator.setStatus(statusText);
+                    amortizator.setJpg(picText);
+                    amortizator.setInstall(installText);
 
                     try {
-                        String columnNumber = db.selectNMBR(art_numberText);
-
-                        if (art_numberText.equals(columnNumber)){
-
-                            Long id = Long.valueOf(db.selectID(art_numberText));
-                            db.delRec(id);
-                            favoritestar.setVisibility(View.GONE);
-                            favoritestar_unchecked.setVisibility(View.VISIBLE);
-                            Toast.makeText(context, "Удалено из избранного", Toast.LENGTH_SHORT).show();
-                        }else{
-                            db.insertFavorites(art_numberText, installText, price_euroText, rangeText, statusText);
-                            favoritestar.setVisibility(View.VISIBLE);
-                            favoritestar_unchecked.setVisibility(View.GONE);
-                            Toast.makeText(context, "Добавлено в избранное", Toast.LENGTH_SHORT).show();
-                        }
-                    }catch (Exception np){
-                        np.printStackTrace();
-                    }finally {
-                        db.close();
+                        mAmortizatorDao.insert(amortizator);
+                        favoritestar.setVisibility(View.VISIBLE);
+                        favoritestar_unchecked.setVisibility(View.GONE);
+                        Toast.makeText(context, "Добавлено в избранное", Toast.LENGTH_SHORT).show();
+                    }catch (Exception x){
+                        x.printStackTrace();
                     }
                 }
             };
         }
 
+        private View.OnClickListener clickOnStarDelete(){
+            return new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    art_numberText = art_number.getText().toString();
+
+                    try {
+                        mAmortizatorDao.queryBuilder()
+                                .where(AmortizatorDao.Properties.Art_number.eq(art_numberText))
+                                .buildDelete().executeDeleteWithoutDetachingEntities();
+
+                        favoritestar.setVisibility(View.GONE);
+                        favoritestar_unchecked.setVisibility(View.VISIBLE);
+                        Toast.makeText(context, "Удалено из избранного", Toast.LENGTH_SHORT).show();
+                    }catch (Exception x){
+                        x.printStackTrace();
+                    }
+                }
+            };
+        }
     }
-
-
-
-
 }

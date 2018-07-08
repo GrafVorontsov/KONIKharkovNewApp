@@ -1,26 +1,53 @@
 package ua.kharkov.koni.konikharkov;
 
-import java.io.Serializable;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
+import org.greenrobot.greendao.annotation.NotNull;
 
+import java.io.Serializable;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
+
+@Entity(active = true, nameInDb = "AMORTIZATORS")
 public class Amortizator implements Serializable {
 
-    private int id;
+    public static final long serialVersionUID = 1L;
+
+    @Id(autoincrement = true)
+    private Long id;
     private String marka_name;
     private String model_name;
     private String car_name;
     private String correction;
+    @NotNull
     private String year;
+    @NotNull
     private String range;
+    @NotNull
     private String install;
+    @NotNull
     private String art_number;
     private String info;
     private String info_lowering;
     private String jpg;
     private String pdf;
+    @NotNull
     private String status;
+    @NotNull
     private String price_euro;
 
-    Amortizator(String marka_name, String model_name, String car_name, String correction, String year, String range, String install, String art_number, String info, String info_lowering, String jpg, String pdf, String status, String price_euro) {
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+
+    /** Used for active entity operations. */
+    @Generated(hash = 2109394019)
+    private transient AmortizatorDao myDao;
+
+
+    Amortizator(String marka_name, String model_name, String car_name, String correction, @NotNull String year, @NotNull String range, @NotNull String install, @NotNull String art_number, String info, String info_lowering, String jpg,
+                String pdf, @NotNull String status, @NotNull String price_euro) {
         this.marka_name = marka_name;
         this.model_name = model_name;
         this.car_name = car_name;
@@ -37,11 +64,35 @@ public class Amortizator implements Serializable {
         this.price_euro = price_euro;
     }
 
-    public int getId() {
+    @Generated(hash = 1479664403)
+    Amortizator(Long id, String marka_name, String model_name, String car_name, String correction, @NotNull String year, @NotNull String range, @NotNull String install, @NotNull String art_number, String info, String info_lowering, String jpg,
+                String pdf, @NotNull String status, @NotNull String price_euro) {
+        this.id = id;
+        this.marka_name = marka_name;
+        this.model_name = model_name;
+        this.car_name = car_name;
+        this.correction = correction;
+        this.year = year;
+        this.range = range;
+        this.install = install;
+        this.art_number = art_number;
+        this.info = info;
+        this.info_lowering = info_lowering;
+        this.jpg = jpg;
+        this.pdf = pdf;
+        this.status = status;
+        this.price_euro = price_euro;
+    }
+
+    @Generated(hash = 1582105123)
+    Amortizator() {
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -156,4 +207,49 @@ public class Amortizator implements Serializable {
     void setPrice_euro(String price_euro) {
         this.price_euro = price_euro;
     }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 184572526)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getAmortizatorDao() : null;
+    }
+
+
 }

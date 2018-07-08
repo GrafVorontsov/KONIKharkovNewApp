@@ -198,7 +198,6 @@ public class SearchActivity extends SearchMenuActivity {
                 amortizators.add(amortizator);
             }
 
-            //
             adapter.notifyDataSetChanged();
 
             //прокрутка списка в начало, после каждого поиска
