@@ -46,7 +46,7 @@ public class AmortizatorDao extends AbstractDao<Amortizator, Long> {
         super(config);
     }
     
-    AmortizatorDao(DaoConfig config, DaoSession daoSession) {
+    public AmortizatorDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
         this.daoSession = daoSession;
     }

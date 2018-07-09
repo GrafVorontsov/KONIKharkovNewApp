@@ -1,11 +1,14 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -67,15 +72,6 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }catch (StringIndexOutOfBoundsException e){
             myHolder.model_name.setVisibility(View.GONE);
         }
-/*
-        try {
-            myHolder.carName.setText(current.getCar_name());
-            myHolder.carName.setVisibility(View.VISIBLE);
-            tempCar = current.getCar_name();
-        }catch (StringIndexOutOfBoundsException e){
-            myHolder.carName.setVisibility(View.GONE);
-        }
-*/
 
         if (current.getCar_name().equals("")){
             myHolder.carName.setVisibility(View.GONE);
@@ -237,11 +233,57 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     intentInfo(context, art_number, info, info_lowering, pic);}
             });
 
+            //клик на незакрашеной звёздочке
             favoritestar_unchecked.setOnClickListener(clickOnStarGreen());
-
+            //клик на закрашеной звёздочке
             favoritestar.setOnClickListener(clickOnStarDelete());
+
+            //копируем номер детали по клику на карточку товара
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    CharSequence copyNumber = art_number.getText();
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Number", copyNumber);
+                    assert clipboardManager != null;
+                    clipboardManager.setPrimaryClip(clip);
+
+                    String toastText = copyNumber.toString() + " " + context.getResources().getString(R.string.numberIsCopied);
+                    Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+
+                    return true;
+                }
+            });
+
+            //клик на цене
+            price_euro.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    String inst = "";
+                    if (install.getText().equals("Front")){
+                        inst = "передние";
+                    }else if (install.getText().equals("Rear")){
+                        inst = "задние";
+                    }
+
+                    CharSequence copyPrice = price_euro.getText() + " грн. за штуку " + inst;
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Price", copyPrice);
+                    assert clipboardManager != null;
+                    clipboardManager.setPrimaryClip(clip);
+
+                    String toastText = "Цена скопирована";
+
+                    Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+
+                    return true;
+                }
+            });
         }
 
+        //метод для перехода на активити с информацией
         private void intentInfo(Context context,
                                        TextView art_number,
                                        TextView info,
@@ -263,6 +305,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
         }
 
+        //метод добавляет товар в избранное
         private View.OnClickListener clickOnStarGreen(){
             return new View.OnClickListener() {
 
@@ -323,6 +366,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             };
         }
 
+        //метод удаляет товар из избранного
         private View.OnClickListener clickOnStarDelete(){
             return new View.OnClickListener() {
 

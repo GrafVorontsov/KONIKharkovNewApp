@@ -1,9 +1,15 @@
 package ua.kharkov.koni.konikharkov;
 
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import org.greenrobot.greendao.query.Query;
@@ -53,6 +59,13 @@ public class Favourites extends AppCompatActivity {
         adapter = new AmortizatorsAdapter(this, amortizators);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_delete, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     //заставляем кнопку home работать как надо
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -62,6 +75,21 @@ public class Favourites extends AppCompatActivity {
             onBackPressed();
             return true;
         }
+        if (id == R.id.menu_delete) {
+            //Диалог подтвердения удаения всех данных из избранного
+            new AlertDialog.Builder(this)
+                    .setTitle("Очистить избранное?")
+                    .setMessage("Выдействительно хотите очистить избранное?")
+                    .setNegativeButton(android.R.string.no, null)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            mAmortizatorDao.deleteAll(); //очистить всё избранное
+                            recreate(); //пересоздаём активити
+                        }
+                    }).create().show();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }

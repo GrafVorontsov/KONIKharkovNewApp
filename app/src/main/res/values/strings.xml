@@ -20,7 +20,7 @@
     <string name="info">Info</string>
     <string name="main_page">Catalog</string>
     <string name="call_page">Call to manager</string>
-    <string name="title_call">Выберите, какой оператор вам удобнее</string>
+    <string name="title_call">Choice method for call</string>
     <string name="vodafone">vodafone</string>
     <string name="kyivstar">kyivstar</string>
     <string name="life">life</string>
@@ -32,5 +32,7 @@
     <string name="title_activity_card_favorites">card_favorites</string>
     <string name="delete">Delete</string>
     <string name="kharkov">Kharkov</string>
+    <string name="numberIsCopied">is copied</string>
+    <string name="copy">номер скопирован</string>
 
 </resources>

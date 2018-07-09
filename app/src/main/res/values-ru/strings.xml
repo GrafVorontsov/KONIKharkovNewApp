@@ -30,4 +30,6 @@
     <string name="fones">Телефоны для связи</string>
     <string name="delete">Удалить</string>
     <string name="kharkov">Харьков</string>
+    <string name="numberIsCopied">скопирован</string>
+    <string name="copy">номер скопирован</string>
 </resources>

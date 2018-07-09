@@ -65,8 +65,8 @@ public class Amortizator implements Serializable {
     }
 
     @Generated(hash = 1479664403)
-    Amortizator(Long id, String marka_name, String model_name, String car_name, String correction, @NotNull String year, @NotNull String range, @NotNull String install, @NotNull String art_number, String info, String info_lowering, String jpg,
-                String pdf, @NotNull String status, @NotNull String price_euro) {
+    public Amortizator(Long id, String marka_name, String model_name, String car_name, String correction, @NotNull String year, @NotNull String range, @NotNull String install, @NotNull String art_number, String info, String info_lowering, String jpg,
+            String pdf, @NotNull String status, @NotNull String price_euro) {
         this.id = id;
         this.marka_name = marka_name;
         this.model_name = model_name;
@@ -85,7 +85,7 @@ public class Amortizator implements Serializable {
     }
 
     @Generated(hash = 1582105123)
-    Amortizator() {
+    public Amortizator() {
     }
 
     public Long getId() {
