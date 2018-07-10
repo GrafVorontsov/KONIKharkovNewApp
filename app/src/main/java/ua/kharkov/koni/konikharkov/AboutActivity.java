@@ -14,7 +14,6 @@ import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
 
 public class AboutActivity extends AppCompatActivity{
-    //private ActionBar mToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +26,7 @@ public class AboutActivity extends AppCompatActivity{
         }
 
         Element versionElement = new Element();
-        versionElement.setTitle("Version 1.0");
+        versionElement.setTitle("Version 2.0");
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)

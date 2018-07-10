@@ -13,7 +13,6 @@
     <string name="range">range</string>
     <string name="price">Price</string>
     <string name="install">Install</string>
-    <string name="marka">Marka</string>
     <string name="open">Open navigation drawer</string>
     <string name="close">Close navigation drawer</string>
     <string name="copy_right" translatable="false">Copyrights © %1$d</string>
@@ -29,10 +28,7 @@
     <string name="clear">Clear</string>
     <string name="favourites">Favourites</string>
     <string name="fones">Phones for call</string>
-    <string name="title_activity_card_favorites">card_favorites</string>
-    <string name="delete">Delete</string>
     <string name="kharkov">Kharkov</string>
     <string name="numberIsCopied">is copied</string>
-    <string name="copy">номер скопирован</string>
 
 </resources>
