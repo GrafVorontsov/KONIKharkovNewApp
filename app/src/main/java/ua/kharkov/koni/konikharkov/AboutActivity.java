@@ -26,7 +26,8 @@ public class AboutActivity extends AppCompatActivity{
         }
 
         Element versionElement = new Element();
-        versionElement.setTitle("Version 2.0");
+        String versionName = BuildConfig.VERSION_NAME;
+        versionElement.setTitle("Version " + versionName);
 
         View aboutPage = new AboutPage(this)
                 .isRTL(false)

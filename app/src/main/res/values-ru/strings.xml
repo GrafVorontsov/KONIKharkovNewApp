@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KONI Kharkov</string>
+    <string name="app_name">KONI Харьков</string>
     <string name="search_view_title">Поиск по номеру детали</string>
     <string name="search_view_hint">Введите номер детали&#8230;</string>
     <string name="get_brand">Выберите марку</string>
