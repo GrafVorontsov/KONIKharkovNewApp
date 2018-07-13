@@ -19,8 +19,9 @@ public abstract class SearchMenuActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_search, menu);
 
         final MenuItem searchMenuItem = menu.findItem(R.id.menu_search);
-        searchView = (SearchView) searchMenuItem.getActionView();
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        assert searchManager != null;
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -37,12 +38,9 @@ public abstract class SearchMenuActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private SearchView searchView;
-
-    protected abstract void onQuerySubmit(String query);
-
     protected boolean isNetworkAvailable(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }

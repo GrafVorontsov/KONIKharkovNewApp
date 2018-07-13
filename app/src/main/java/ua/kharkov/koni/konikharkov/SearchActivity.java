@@ -216,9 +216,6 @@ public class SearchActivity extends SearchMenuActivity {
     }
 
     @Override
-    protected void onQuerySubmit(String query) {}
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 

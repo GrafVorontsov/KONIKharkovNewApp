@@ -337,7 +337,6 @@ public class MainActivity extends SearchMenuActivity{
                         JSONObject json = j.getJSONObject(i);
                         modelAdapter.add(json.getString(Config.MODEL_NAME));
                     }
-                    //spinner_model.setAdapter(modelAdapter);
                     break;
 
                 case "cars":    carAdapter.add(getString(R.string.get_auto));
@@ -412,8 +411,7 @@ public class MainActivity extends SearchMenuActivity{
                 }
 
                 String pr_euro = amortizator.getPrice_euro();
-                //Log.i("PRICE EURO", "pr_euro " + pr_euro);
-                //Log.i("KURS", "kurs " + kurs);
+
                 try {
 
                     String price = String.valueOf(Math.round(Double.parseDouble(pr_euro) * kurs));
@@ -462,9 +460,6 @@ public class MainActivity extends SearchMenuActivity{
 
         return id;
     }
-
-    @Override
-    protected void onQuerySubmit(String query) {}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
