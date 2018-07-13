@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
 import org.greenrobot.greendao.query.Query;
 
@@ -44,15 +46,12 @@ public class Favourites extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerviewfav);
         GridLayoutManager gridLayout = new GridLayoutManager(this, 1);  //(объект, количество колонок)
+        //LinearLayoutManager gridLayout = new LinearLayoutManager(this); //(объект, количество колонок)
         recyclerView.setLayoutManager(gridLayout);
 
         amortizators = new ArrayList<>();
 
         recyclerView.setAdapter(adapter);
-        //recyclerView.invalidateViews();
-        //adapter.notifyItemRangeChanged(0, amortizators.size());
-        //mAmortizatorDao.deleteAll(); //очистить всё
-
     }
     public void updateAmortizators() {
         amortizators = amortizatorsQuery.list();

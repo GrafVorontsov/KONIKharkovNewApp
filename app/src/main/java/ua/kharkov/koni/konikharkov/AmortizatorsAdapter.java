@@ -25,21 +25,18 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private LayoutInflater inflater;
     private List<Amortizator> amortizators;
-    private Amortizator current;
     private String tempMarka;
     private String tempModel;
     private String tempCar;
 
     private AmortizatorDao mAmortizatorDao;
 
-    DaoSession daoSession;
-
     AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
         this.context = context;
         inflater= LayoutInflater.from(context);
         this.amortizators = amortizators;
 
-        daoSession = DaoHelper.getInstance(context).getDaoSession();
+        DaoSession daoSession = DaoHelper.getInstance(context).getDaoSession();
         mAmortizatorDao = daoSession.getAmortizatorDao();
     }
 
@@ -55,7 +52,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         // Get current position of item in RecyclerView to bind data and assign values from list
         MyHolder myHolder = (MyHolder) holder;
-        current = amortizators.get(position);
+        Amortizator current = amortizators.get(position);
 
         try {
             myHolder.marka_name.setText(current.getMarka_name());
@@ -388,5 +385,6 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             };
         }
+
     }
 }

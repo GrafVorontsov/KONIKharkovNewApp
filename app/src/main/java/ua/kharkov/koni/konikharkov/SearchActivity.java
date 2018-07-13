@@ -3,7 +3,7 @@ package ua.kharkov.koni.konikharkov;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchActivity extends SearchMenuActivity {
 
@@ -35,7 +36,6 @@ public class SearchActivity extends SearchMenuActivity {
     private List<Amortizator> amortizators;
     private AmortizatorsAdapter adapter;
     RecyclerView recyclerView;
-    private Double kurs;
 
     public static Intent newIntentShowAbsorbers(Context packageContext, List<Amortizator> absorbers){
         Intent intent = new Intent(packageContext, SearchActivity.class);
@@ -48,7 +48,9 @@ public class SearchActivity extends SearchMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        }
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -145,7 +147,7 @@ public class SearchActivity extends SearchMenuActivity {
 
             JSONArray rates = src.getJSONArray("rates");
 
-            kurs = rates.getJSONObject(0).getDouble("KURS_EURO");
+            Double kurs = rates.getJSONObject(0).getDouble("KURS_EURO");
 
             for (int i = 0; i < cars.length(); i++) {
 
