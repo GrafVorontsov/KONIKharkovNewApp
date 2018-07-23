@@ -41,7 +41,7 @@ public class Favourites extends AppCompatActivity {
         DaoSession daoSession = DaoHelper.getInstance(this).getDaoSession();
         mAmortizatorDao = daoSession.getAmortizatorDao();
 
-        amortizatorsQuery = mAmortizatorDao.queryBuilder().orderAsc(AmortizatorDao.Properties.Art_number).build();
+        amortizatorsQuery = mAmortizatorDao.queryBuilder().orderAsc(AmortizatorDao.Properties.Marka_name, AmortizatorDao.Properties.Model_name, AmortizatorDao.Properties.Car_name, AmortizatorDao.Properties.Art_number).build();
         updateAmortizators();
 
         recyclerView = findViewById(R.id.recyclerviewfav);

@@ -29,4 +29,5 @@
     <string name="fones">Телефоны для связи</string>
     <string name="kharkov">Харьков</string>
     <string name="numberIsCopied">скопирован</string>
+    <string name="list">Список</string>
 </resources>

@@ -30,5 +30,6 @@
     <string name="fones">Phones for call</string>
     <string name="kharkov">Kharkov</string>
     <string name="numberIsCopied">is copied</string>
+    <string name="list">List</string>
 
 </resources>
