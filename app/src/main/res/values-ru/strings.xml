@@ -30,4 +30,5 @@
     <string name="kharkov">Харьков</string>
     <string name="numberIsCopied">скопирован</string>
     <string name="list">Список</string>
+    <string name="PicAddressIsCopied">Адрес изображения скопирован</string>
 </resources>

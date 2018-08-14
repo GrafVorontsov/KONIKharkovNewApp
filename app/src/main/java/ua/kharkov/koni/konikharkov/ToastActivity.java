@@ -1,6 +1,9 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.PhotoView;
 
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 
 public class ToastActivity extends AppCompatActivity {
 
+    private Context context;
     InfoAdapter infoAdapter;
     ArrayList<Info> infos = new ArrayList<>();
     private ProgressBar progressBar;
@@ -48,6 +53,8 @@ public class ToastActivity extends AppCompatActivity {
         LinearLayout linearLayout = findViewById(R.id.listInfo);
 
         Intent intent = getIntent();
+
+        context = getApplicationContext();
 
         //проверяем на наличие данных info и загружаем их если есть
         try {
@@ -96,9 +103,26 @@ public class ToastActivity extends AppCompatActivity {
                 bindImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
             }
 
-            String pathToFile = "http://koni.kharkov.ua/catalog/images/products/" + pic;
+            final String pathToFile = "http://koni.kharkov.ua/catalog/images/products/" + pic;
             DownloadImageWithURLTask downloadTask = new DownloadImageWithURLTask(bindImage);
             downloadTask.execute(pathToFile);
+
+            //копируем url изображения по LongClick
+            bindImage.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("PicAddress", pathToFile);
+                    assert clipboardManager != null;
+                    clipboardManager.setPrimaryClip(clip);
+
+                    String toastText = context.getResources().getString(R.string.PicAddressIsCopied);
+                    Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+
+                    return true;
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

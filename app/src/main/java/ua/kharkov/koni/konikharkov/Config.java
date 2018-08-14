@@ -5,8 +5,10 @@ class Config {
     static final String MARKA_URL = "http://www.koni.kharkov.ua/android/getMarka.php";
     static final String MODEL_URL = "http://www.koni.kharkov.ua/android/getModel.php";
     static final String CAR_URL = "http://www.koni.kharkov.ua/android/getCars.php";
-    static final String AMORT_URL = "http://www.koni.kharkov.ua/android/getAmort.php";
-    static final String SEARCH_URL = "http://www.koni.kharkov.ua/android/getSearch.php?id=";
+    //tatic final String AMORT_URL = "http://www.koni.kharkov.ua/android/getAmort.php";
+    static final String AMORT_URL = "http://www.koni.kharkov.ua/android/getAmortNew.php";
+    //static final String SEARCH_URL = "http://www.koni.kharkov.ua/android/getSearch.php?id=";
+    static final String SEARCH_URL = "http://www.koni.kharkov.ua/android/getSearchNew.php?id=";
 
     //Tags used in the JSON String
     static final String MARKA_ID = "marka_id";

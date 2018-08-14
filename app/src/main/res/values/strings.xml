@@ -31,5 +31,6 @@
     <string name="kharkov">Kharkov</string>
     <string name="numberIsCopied">is copied</string>
     <string name="list">List</string>
+    <string name="PicAddressIsCopied">Address of pictures is copied</string>
 
 </resources>

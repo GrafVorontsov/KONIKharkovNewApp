@@ -145,10 +145,6 @@ public class SearchActivity extends SearchMenuActivity {
 
             JSONArray cars = src.getJSONArray("cars");
 
-            JSONArray rates = src.getJSONArray("rates");
-
-            Double kurs = rates.getJSONObject(0).getDouble("KURS_EURO");
-
             for (int i = 0; i < cars.length(); i++) {
 
                 JSONObject object = cars.getJSONObject(i);
@@ -188,13 +184,10 @@ public class SearchActivity extends SearchMenuActivity {
 
                 String pr_euro = amortizator.getPrice_euro();
 
-                try {
-
-                    String price = String.valueOf(Math.round(Double.parseDouble(pr_euro) * kurs));
-                    amortizator.setPrice_euro(price);
-
-                } catch (NumberFormatException e) {
+                if (pr_euro.equals("null")){
                     amortizator.setPrice_euro("0");
+                }else {
+                    amortizator.setPrice_euro(pr_euro);
                 }
 
                 amortizators.add(amortizator);

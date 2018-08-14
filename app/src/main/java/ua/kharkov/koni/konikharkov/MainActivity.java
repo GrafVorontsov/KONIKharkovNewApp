@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -291,8 +292,9 @@ public class MainActivity extends SearchMenuActivity{
                         try {
                             JSONObject src = new JSONObject(response);
                             JSONArray cars = src.getJSONArray("cars");
-                            JSONArray rates = src.getJSONArray("rates");
-                            getAmortNames(cars, rates);
+                            //JSONArray rates = src.getJSONArray("rates");
+                            //getAmortNames(cars, rates);
+                            getAmortNames(cars);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -356,7 +358,7 @@ public class MainActivity extends SearchMenuActivity{
             e.printStackTrace();
         }
     }
-
+/*
     private void getAmortNames(JSONArray cars, JSONArray rates){
         String marka_bool = "";
         String model_bool = "";
@@ -419,6 +421,79 @@ public class MainActivity extends SearchMenuActivity{
 
                 } catch (NumberFormatException e) {
                     amortizator.setPrice_euro("0");
+                }
+
+                amortizators.add(amortizator);
+            }
+
+            Intent intent = SearchActivity.newIntentShowAbsorbers(MainActivity.this, amortizators);
+            startActivity(intent);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    */
+
+    private void getAmortNames(JSONArray cars){
+        String marka_bool = "";
+        String model_bool = "";
+        String car_bool = "";
+
+        try {
+            //kurs = rates.getJSONObject(0).getDouble("KURS_EURO");
+
+            for (int i = 0; i < cars.length(); i++) {
+
+                JSONObject object = cars.getJSONObject(i);
+
+                Amortizator amortizator = new Amortizator(
+                        object.getString("marka_name"),
+                        object.getString("model_name"),
+                        object.getString("car_name"),
+                        object.getString("correction"),
+                        object.getString("year"),
+                        object.getString("range_type"),
+                        object.getString("install"),
+                        object.getString("art_number"),
+                        object.getString("info"),
+                        object.getString("info_lowering"),
+                        object.getString("jpg"),
+                        object.getString("pdf"),
+                        object.getString("status"),
+                        object.getString("PRICE_EURO"));
+
+                String marka = amortizator.getMarka_name();
+
+                if (!marka.equals(marka_bool)) {
+                    marka_bool = marka;
+
+                } else {
+                    amortizator.setMarka_name("");
+                }
+
+                String model = amortizator.getModel_name();
+
+                if (!model.equals(model_bool)) {
+                    model_bool = model;
+                } else {
+                    amortizator.setModel_name("");
+                }
+
+                String car = amortizator.getCar_name();
+
+                if (!car.equals(car_bool)) {
+                    car_bool = car;
+                } else {
+                    amortizator.setCar_name("");
+                }
+
+                String pr_euro = amortizator.getPrice_euro();
+
+                if (pr_euro.equals("null")){
+                    amortizator.setPrice_euro("0");
+                }else {
+                    amortizator.setPrice_euro(pr_euro);
                 }
 
                 amortizators.add(amortizator);
