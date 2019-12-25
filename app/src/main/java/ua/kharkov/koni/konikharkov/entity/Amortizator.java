@@ -1,13 +1,15 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.entity;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.NotNull;
 
 import java.io.Serializable;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
+
+import ua.kharkov.koni.konikharkov.greenDAO.AmortizatorDao;
+import ua.kharkov.koni.konikharkov.greenDAO.DaoSession;
 
 @Entity(active = true, nameInDb = "AMORTIZATORS")
 public class Amortizator implements Serializable {
@@ -46,8 +48,8 @@ public class Amortizator implements Serializable {
     private transient AmortizatorDao myDao;
 
 
-    Amortizator(String marka_name, String model_name, String car_name, String correction, @NotNull String year, @NotNull String range, @NotNull String install, @NotNull String art_number, String info, String info_lowering, String jpg,
-                String pdf, @NotNull String status, @NotNull String price_euro) {
+    public Amortizator(String marka_name, String model_name, String car_name, String correction, @NotNull String year, @NotNull String range, @NotNull String install, @NotNull String art_number, String info, String info_lowering, String jpg,
+                       String pdf, @NotNull String status, @NotNull String price_euro) {
         this.marka_name = marka_name;
         this.model_name = model_name;
         this.car_name = car_name;
@@ -96,31 +98,31 @@ public class Amortizator implements Serializable {
         this.id = id;
     }
 
-    String getMarka_name() {
+    public String getMarka_name() {
         return marka_name.toUpperCase().charAt(0) + marka_name.substring(1);
     }
 
-    void setMarka_name(String marka_name) {
+    public void setMarka_name(String marka_name) {
         this.marka_name = marka_name;
     }
 
-    String getModel_name() {
+    public String getModel_name() {
         return model_name.toUpperCase().charAt(0) + model_name.substring(1);
     }
 
-    void setModel_name(String model_name) {
+    public void setModel_name(String model_name) {
         this.model_name = model_name;
     }
 
-    String getCar_name() {
+    public String getCar_name() {
         return car_name;
     }
 
-    void setCar_name(String car_name) {
+    public void setCar_name(String car_name) {
         this.car_name = car_name;
     }
 
-    String getCorrection() {
+    public String getCorrection() {
         return correction;
     }
 
@@ -136,7 +138,7 @@ public class Amortizator implements Serializable {
         this.year = year;
     }
 
-    String getRange() {
+    public String getRange() {
         return range;
     }
 
@@ -144,7 +146,7 @@ public class Amortizator implements Serializable {
         this.range = range;
     }
 
-    String getInstall() {
+    public String getInstall() {
         return install;
     }
 
@@ -152,7 +154,7 @@ public class Amortizator implements Serializable {
         this.install = install;
     }
 
-    String getArt_number() {
+    public String getArt_number() {
         return art_number;
     }
 
@@ -168,7 +170,7 @@ public class Amortizator implements Serializable {
         this.info = info;
     }
 
-    String getInfo_lowering() {
+    public String getInfo_lowering() {
         return info_lowering;
     }
 
@@ -176,7 +178,7 @@ public class Amortizator implements Serializable {
         this.info_lowering = info_lowering;
     }
 
-    String getJpg() {
+    public String getJpg() {
         return jpg;
     }
 
@@ -192,7 +194,7 @@ public class Amortizator implements Serializable {
         this.pdf = pdf;
     }
 
-    String getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -200,11 +202,11 @@ public class Amortizator implements Serializable {
         this.status = status;
     }
 
-    String getPrice_euro() {
+    public String getPrice_euro() {
         return price_euro;
     }
 
-    void setPrice_euro(String price_euro) {
+    public void setPrice_euro(String price_euro) {
         this.price_euro = price_euro;
     }
 

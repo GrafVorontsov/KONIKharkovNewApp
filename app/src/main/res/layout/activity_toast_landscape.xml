@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="ua.kharkov.koni.konikharkov.ToastActivity">
+    tools:context="ua.kharkov.koni.konikharkov.activityes.ToastActivity">
 
     <LinearLayout
         android:id="@+id/listInfo"

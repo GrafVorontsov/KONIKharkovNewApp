@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.entity;
 
 public class Info {
     private String icon;

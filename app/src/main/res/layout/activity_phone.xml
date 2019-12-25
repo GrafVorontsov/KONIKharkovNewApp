@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ua.kharkov.koni.konikharkov.PhoneActivity">
+    tools:context="ua.kharkov.koni.konikharkov.activityes.PhoneActivity">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

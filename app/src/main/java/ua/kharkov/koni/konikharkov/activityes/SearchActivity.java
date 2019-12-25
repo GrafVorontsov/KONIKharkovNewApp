@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.activityes;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -26,6 +26,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import ua.kharkov.koni.konikharkov.entity.Amortizator;
+import ua.kharkov.koni.konikharkov.adapter.AmortizatorsAdapter;
+import ua.kharkov.koni.konikharkov.R;
+import ua.kharkov.koni.konikharkov.helper.VolleyRequestHelper;
+
+import static ua.kharkov.koni.konikharkov.config.Config.SEARCH_URL;
 
 public class SearchActivity extends SearchMenuActivity {
 
@@ -106,7 +113,7 @@ public class SearchActivity extends SearchMenuActivity {
     public void getData(String newText) {
         String searchString = newText.replaceAll("[^A-Za-z0-9]", ""); // удалится все кроме букв и цифр;
         //формируем url для запроса
-        String url = Config.SEARCH_URL + searchString;
+        String url = SEARCH_URL + searchString;
         //making the progressbar visible
         progressBar.setVisibility(View.VISIBLE);
 
@@ -132,8 +139,8 @@ public class SearchActivity extends SearchMenuActivity {
                     }
                 });
 
-        RequestQueue queue = Singleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        Singleton.getInstance(this).addToRequestQueue(stringRequest);
+        RequestQueue queue = VolleyRequestHelper.getInstance(this.getApplicationContext()).getRequestQueue();
+        VolleyRequestHelper.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void showJSON(String response) {
@@ -218,7 +225,7 @@ public class SearchActivity extends SearchMenuActivity {
 
         if (id == R.id.menu_fav) {
 
-            Intent intent = new Intent(this,Favourites.class);
+            Intent intent = new Intent(this, Favourites.class);
             this.startActivity(intent);
             return true;
         }

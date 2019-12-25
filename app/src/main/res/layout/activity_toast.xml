@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="ua.kharkov.koni.konikharkov.ToastActivity">
+    tools:context="ua.kharkov.koni.konikharkov.activityes.ToastActivity">
 
     <LinearLayout
         android:id="@+id/listInfo"

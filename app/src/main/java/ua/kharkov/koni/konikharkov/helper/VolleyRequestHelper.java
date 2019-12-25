@@ -1,24 +1,27 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.helper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-public class Singleton {
-    private static Singleton instance;
+public class VolleyRequestHelper {
+    @SuppressLint("StaticFieldLeak")
+    private static VolleyRequestHelper instance;
     private RequestQueue mRequestQueue;
+    @SuppressLint("StaticFieldLeak")
     private static Context mCtx;
 
-    private Singleton(Context context) {
+    private VolleyRequestHelper(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
     }
 
-    public static synchronized Singleton getInstance(Context context){
+    public static synchronized VolleyRequestHelper getInstance(Context context){
         if (instance == null){
-            instance = new Singleton(context);
+            instance = new VolleyRequestHelper(context);
         }
         return instance;
     }

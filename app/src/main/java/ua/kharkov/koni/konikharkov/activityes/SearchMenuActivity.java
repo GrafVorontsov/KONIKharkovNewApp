@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.activityes;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import ua.kharkov.koni.konikharkov.R;
 
 public abstract class SearchMenuActivity extends AppCompatActivity {
 

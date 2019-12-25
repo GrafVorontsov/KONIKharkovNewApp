@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,13 +10,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ua.kharkov.koni.konikharkov.entity.Info;
+import ua.kharkov.koni.konikharkov.R;
+
 public class InfoAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater inflater;
     private ArrayList<Info> infos;
 
-    InfoAdapter(Context context, ArrayList<Info> infos) {
+    public InfoAdapter(Context context, ArrayList<Info> infos) {
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.infos = infos;
@@ -85,7 +88,6 @@ public class InfoAdapter extends BaseAdapter {
     }
 
     public void clear() {
-        // TODO Auto-generated method stub
         infos.clear();
     }
 

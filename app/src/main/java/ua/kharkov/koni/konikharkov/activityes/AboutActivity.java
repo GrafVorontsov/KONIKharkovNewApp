@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.activityes;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +12,8 @@ import java.util.Calendar;
 
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
+import ua.kharkov.koni.konikharkov.BuildConfig;
+import ua.kharkov.koni.konikharkov.R;
 
 public class AboutActivity extends AppCompatActivity{
     @Override
@@ -71,7 +73,7 @@ public class AboutActivity extends AppCompatActivity{
 
         if (id == R.id.menu_fav) {
 
-            Intent intent = new Intent(this,Favourites.class);
+            Intent intent = new Intent(this, Favourites.class);
             this.startActivity(intent);
             return true;
         }

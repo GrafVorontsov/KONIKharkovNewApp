@@ -1,9 +1,18 @@
 package ua.kharkov.koni.konikharkov;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -11,7 +20,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,7 +43,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends SearchMenuActivity{
+import ua.kharkov.koni.konikharkov.activityes.AboutActivity;
+import ua.kharkov.koni.konikharkov.activityes.Favourites;
+import ua.kharkov.koni.konikharkov.activityes.PhoneActivity;
+import ua.kharkov.koni.konikharkov.activityes.SearchActivity;
+import ua.kharkov.koni.konikharkov.activityes.SearchMenuActivity;
+import ua.kharkov.koni.konikharkov.config.Config;
+import ua.kharkov.koni.konikharkov.entity.Amortizator;
+import ua.kharkov.koni.konikharkov.helper.VolleyRequestHelper;
+
+public class MainActivity extends SearchMenuActivity {
     private Button clear_button;
 
     private DrawerLayout mDrawerLayout;
@@ -57,6 +74,8 @@ public class MainActivity extends SearchMenuActivity{
 
     private List<Amortizator> amortizators;
     private String whatFor;
+
+    private BroadcastReceiver mNetworkReceiver;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -108,10 +127,13 @@ public class MainActivity extends SearchMenuActivity{
         });
 
         //проверяем подкдючен ли интернет
-        if(!isNetworkAvailable()){
+        /*if(!isNetworkAvailable()){
             Toast.makeText(getApplicationContext(), getString(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
-        }
+        }*/
 
+
+
+//
         //тянуть и обновить
         final SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.swipe_container);
         swipeRefreshLayout.setColorScheme(R.color.blue, R.color.green, R.color.yellow, R.color.red);
@@ -278,8 +300,8 @@ public class MainActivity extends SearchMenuActivity{
                     }
                 });
 
-        RequestQueue queue = Singleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        Singleton.getInstance(this).addToRequestQueue(stringRequest);
+        RequestQueue queue = VolleyRequestHelper.getInstance(this.getApplicationContext()).getRequestQueue();
+        VolleyRequestHelper.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     private void getConnectionForAmortizators(String URL, String ids){
@@ -317,8 +339,8 @@ public class MainActivity extends SearchMenuActivity{
             }
         };
 
-        RequestQueue queue = Singleton.getInstance(this.getApplicationContext()).getRequestQueue();
-        Singleton.getInstance(this).addToRequestQueue(stringRequest);
+        RequestQueue queue = VolleyRequestHelper.getInstance(this.getApplicationContext()).getRequestQueue();
+        VolleyRequestHelper.getInstance(this).addToRequestQueue(stringRequest);
     }
 
     //получаем данные для спиннеров

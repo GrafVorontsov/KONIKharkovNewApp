@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import ua.kharkov.koni.konikharkov.entity.Amortizator;
+import ua.kharkov.koni.konikharkov.R;
+import ua.kharkov.koni.konikharkov.activityes.ToastActivity;
+import ua.kharkov.koni.konikharkov.greenDAO.AmortizatorDao;
+import ua.kharkov.koni.konikharkov.greenDAO.DaoSession;
+import ua.kharkov.koni.konikharkov.helper.DaoHelper;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
@@ -31,7 +37,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private AmortizatorDao mAmortizatorDao;
 
-    AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
+    public AmortizatorsAdapter(Context context, List<Amortizator> amortizators) {
         this.context = context;
         inflater= LayoutInflater.from(context);
         this.amortizators = amortizators;
@@ -291,7 +297,7 @@ public class AmortizatorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else{
 
                 //Создаем элемент View заполняем его вид с созданного файла toast.xml:
-                Intent intent=new Intent(context,ToastActivity.class);
+                Intent intent=new Intent(context, ToastActivity.class);
                 //Создаем данные для передачи:
                 intent.putExtra("info_lowering", info_lowering.getText().toString());
                 intent.putExtra("info", info.getText().toString());

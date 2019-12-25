@@ -1,16 +1,16 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.activityes;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import ua.kharkov.koni.konikharkov.R;
+import ua.kharkov.koni.konikharkov.activityes.Favourites;
 
 //класс для работы с телефонами
 public class PhoneActivity extends AppCompatActivity {
@@ -99,7 +99,7 @@ public class PhoneActivity extends AppCompatActivity {
 
         if (id == R.id.menu_fav) {
 
-            Intent intent = new Intent(this,Favourites.class);
+            Intent intent = new Intent(this, Favourites.class);
             this.startActivity(intent);
             return true;
         }

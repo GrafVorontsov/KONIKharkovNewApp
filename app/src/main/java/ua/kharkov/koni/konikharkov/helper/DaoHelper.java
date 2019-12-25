@@ -1,7 +1,10 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.helper;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
+import ua.kharkov.koni.konikharkov.greenDAO.DaoMaster;
+import ua.kharkov.koni.konikharkov.greenDAO.DaoSession;
 
 public class DaoHelper {
 

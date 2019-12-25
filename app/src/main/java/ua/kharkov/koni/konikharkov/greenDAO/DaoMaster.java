@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.greenDAO;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,15 +17,15 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
  * Master of DAO (schema version 1): knows all DAOs.
  */
 public class DaoMaster extends AbstractDaoMaster {
-    public static final int SCHEMA_VERSION = 1;
+    private static final int SCHEMA_VERSION = 1;
 
     /** Creates underlying database table using DAOs. */
-    public static void createAllTables(Database db, boolean ifNotExists) {
+    private static void createAllTables(Database db, boolean ifNotExists) {
         AmortizatorDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
-    public static void dropAllTables(Database db, boolean ifExists) {
+    private static void dropAllTables(Database db, boolean ifExists) {
         AmortizatorDao.dropTable(db, ifExists);
     }
 
@@ -43,7 +43,7 @@ public class DaoMaster extends AbstractDaoMaster {
         this(new StandardDatabase(db));
     }
 
-    public DaoMaster(Database db) {
+    private DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(AmortizatorDao.class);
     }
@@ -60,11 +60,11 @@ public class DaoMaster extends AbstractDaoMaster {
      * Calls {@link #createAllTables(Database, boolean)} in {@link #onCreate(Database)} -
      */
     public static abstract class OpenHelper extends DatabaseOpenHelper {
-        public OpenHelper(Context context, String name) {
+        OpenHelper(Context context, String name) {
             super(context, name, SCHEMA_VERSION);
         }
 
-        public OpenHelper(Context context, String name, CursorFactory factory) {
+        OpenHelper(Context context, String name, CursorFactory factory) {
             super(context, name, factory, SCHEMA_VERSION);
         }
 

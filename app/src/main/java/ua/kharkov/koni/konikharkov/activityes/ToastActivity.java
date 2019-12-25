@@ -1,4 +1,4 @@
-package ua.kharkov.koni.konikharkov;
+package ua.kharkov.koni.konikharkov.activityes;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
@@ -23,6 +23,10 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import ua.kharkov.koni.konikharkov.entity.Info;
+import ua.kharkov.koni.konikharkov.adapter.InfoAdapter;
+import ua.kharkov.koni.konikharkov.R;
 
 public class ToastActivity extends AppCompatActivity {
 
@@ -138,6 +142,7 @@ public class ToastActivity extends AppCompatActivity {
             this.bmImage = bmImage;
         }
 
+        @SuppressLint("WrongThread")
         protected Bitmap doInBackground(String... urls) {
             String pathToFile = urls[0];
             Bitmap bitmap = null;
