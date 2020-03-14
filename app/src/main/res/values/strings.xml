@@ -16,9 +16,10 @@
     <string name="open">Open navigation drawer</string>
     <string name="close">Close navigation drawer</string>
     <string name="copy_right" translatable="false">Copyrights © %1$d</string>
-    <string name="info">Info</string>
+    <string name="info">About</string>
     <string name="main_page">Catalog</string>
     <string name="call_page">Call to manager</string>
+    <string name="manual_page">Manual</string>
     <string name="title_call">Choice method for call</string>
     <string name="vodafone">vodafone</string>
     <string name="kyivstar">kyivstar</string>
@@ -32,5 +33,26 @@
     <string name="numberIsCopied">is copied</string>
     <string name="list">List</string>
     <string name="PicAddressIsCopied">Address of pictures is copied</string>
+    <string name="login">Login</string>
+    <string name="account">Account</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="register">Register</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="btn_link_to_login">Already registred! Login Me.</string>
+    <string name="welcome">Welcome</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="name">Fullname</string>
+    <string name="your_price_level">Your price level: %1$s</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_catalog">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_more">More</string>
+    <string name="title_settings">Settings</string>
+    <string name="user_logo">User logo</string>
 
 </resources>

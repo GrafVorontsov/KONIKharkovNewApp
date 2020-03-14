@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 
 import java.io.Serializable;
@@ -36,8 +34,8 @@ import static ua.kharkov.koni.konikharkov.config.Config.SEARCH_URL;
 
 public class SearchActivity extends SearchMenuActivity {
 
-    private static final String ACTION_SHOW_ABSORBERS = "ua.kharkov.koni.konikharkov.searchActivity.show_absorbers";
-    private static final String EXTRA_LIST_OF_ABSORBERS = "ua.kharkov.koni.konikharkov.searchActivity.list_of_absorbers";
+    private static final String ACTION_SHOW_ABSORBERS = "ua.kharkov.koni.konikharkov.activityes.SearchActivity.show_absorbers";
+    private static final String EXTRA_LIST_OF_ABSORBERS = "ua.kharkov.koni.konikharkov.activityes.SearchActivity.list_of_absorbers";
 
     private ProgressBar progressBar;
     private List<Amortizator> amortizators;
@@ -55,6 +53,7 @@ public class SearchActivity extends SearchMenuActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
@@ -114,29 +113,24 @@ public class SearchActivity extends SearchMenuActivity {
         String searchString = newText.replaceAll("[^A-Za-z0-9]", ""); // удалится все кроме букв и цифр;
         //формируем url для запроса
         String url = SEARCH_URL + searchString;
+        //String url = SEARCH_URL_WITH_LOGIN + searchString;
         //making the progressbar visible
         progressBar.setVisibility(View.VISIBLE);
 
         //creating a string request to send request to the url
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        //hiding the progressbar after completion
-                        progressBar.setVisibility(View.GONE);
-                        amortizators.clear(); //очистка списка найденных амортизаторов перед каждым поиском
-                        adapter.notifyDataSetChanged();
-                        showJSON(response);
-                    }
+                response -> {
+                    //hiding the progressbar after completion
+                    progressBar.setVisibility(View.GONE);
+                    amortizators.clear(); //очистка списка найденных амортизаторов перед каждым поиском
+                    adapter.notifyDataSetChanged();
+                    showJSON(response);
                 },
 
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //displaying the error in toast if occurrs
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                    }
+                error -> {
+                    //displaying the error in toast if occurrs
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getApplicationContext(), error.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 });
 
         RequestQueue queue = VolleyRequestHelper.getInstance(this.getApplicationContext()).getRequestQueue();
@@ -203,12 +197,9 @@ public class SearchActivity extends SearchMenuActivity {
             adapter.notifyDataSetChanged();
 
             //прокрутка списка в начало, после каждого поиска
-            recyclerView.post(new Runnable() {
-                @Override
-                public void run() {
-                    // Call smooth scroll
-                    recyclerView.smoothScrollToPosition(0);
-                }
+            recyclerView.post(() -> {
+                // Call smooth scroll
+                recyclerView.smoothScrollToPosition(0);
             });
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), getString(R.string.information_not_found), Toast.LENGTH_LONG).show();
@@ -224,7 +215,6 @@ public class SearchActivity extends SearchMenuActivity {
         }
 
         if (id == R.id.menu_fav) {
-
             Intent intent = new Intent(this, Favourites.class);
             this.startActivity(intent);
             return true;

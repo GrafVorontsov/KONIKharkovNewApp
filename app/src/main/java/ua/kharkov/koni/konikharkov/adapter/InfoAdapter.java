@@ -59,11 +59,11 @@ public class InfoAdapter extends BaseAdapter {
         infoKoniIcon.setVisibility(View.GONE);
         try {
             String icon = pInfo.getIcon();
-            if (icon.contains("icon")){
+            if (icon != null && icon.contains("icon")){
                 icon = icon.replace("icon", "");
                 infoViewIcon.setVisibility(View.VISIBLE);
                 infoViewIcon.setText(icon);
-            }else if (icon.contains("koni")){
+            }else if (icon != null && icon.contains("koni")){
                 icon = icon.replace("koni", "");
                 infoKoniIcon.setVisibility(View.VISIBLE);
                 infoKoniIcon.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/koni2-webfont.ttf"));

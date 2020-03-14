@@ -13,6 +13,5 @@
         android:id="@+id/menu_fav"
         android:icon="@drawable/favoritestar_outline_white"
         android:title="@string/search_view_title"
-        app:actionViewClass=".Favourites"
         app:showAsAction="ifRoom|collapseActionView" />
 </menu>

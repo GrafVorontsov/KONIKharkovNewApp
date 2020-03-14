@@ -5,21 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/transparent"
     tools:context=".MainActivity"
-    android:id="@+id/drawer_layout">
+    android:id="@+id/drawer_layout">f
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_container"
             android:layout_height="match_parent"
             android:layout_width="match_parent">
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingBottom="10dp"
@@ -41,11 +39,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:fontFamily="@font/roboto_bold"
+                            android:fontFamily="sans-serif-medium"
                             android:text="@string/selection_of_absorbers"
                             android:textAlignment="center"
                             android:textColor="@android:color/black"
-                            android:textSize="30sp" />
+                            android:textSize="28sp" />
 
                         <Spinner
                             android:id="@+id/spinner_marka"
@@ -100,17 +98,5 @@
         </android.support.v4.widget.SwipeRefreshLayout>
     </FrameLayout>
 
-    <android.support.design.widget.NavigationView
-        app:headerLayout="@layout/header"
-        android:id="@+id/navdrawer"
-        android:layout_width="320dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/white"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:drawSelectorOnTop="false"
-        app:menu="@menu/drawer_menu" />
     <!-- The navigation drawer -->
 </android.support.v4.widget.DrawerLayout>

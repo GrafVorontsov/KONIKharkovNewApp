@@ -64,7 +64,7 @@ public class ToastActivity extends AppCompatActivity {
         try {
             info = intent.getStringExtra("info");
 
-            if (info.equals(null) || info.equals("")) {
+            if (info == null || info.equals("")) {
                 linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
                 linearLayout.setVisibility(View.GONE);
             } else {
@@ -79,7 +79,7 @@ public class ToastActivity extends AppCompatActivity {
         try {
             info_lowering = intent.getStringExtra("info_lowering");
 
-            if (!info_lowering.equals(null) || !info_lowering.equals("")) {
+            if (info_lowering != null || !info_lowering.equals("")) {
                 fillDataLowering();
             }
 
@@ -103,7 +103,7 @@ public class ToastActivity extends AppCompatActivity {
         try {
             pic = intent.getStringExtra("pic");
 
-            if (pic.equals(null) || pic.equals("")) {
+            if (pic == null || pic.equals("")) {
                 bindImage.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0));
             }
 

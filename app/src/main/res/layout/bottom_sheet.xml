@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="340dp"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="118dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="Дополнительные функции"
+        android:textColor="@android:color/white" />
+
+
+    <LinearLayout
+        android:id="@+id/call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/button_background"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="15dp"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_phone_black_24dp"
+            android:tint="#737373"
+            android:contentDescription="@string/title_call" />
+
+        <TextView
+            android:id="@+id/pr1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/call_page"
+            android:textColor="#737373"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/button_background"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="15dp"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/outline_account_circle_black_24"
+            android:tint="#737373"
+            android:contentDescription="@string/account" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/account"
+            android:textColor="#737373"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:background="@drawable/button_background"
+        android:orientation="horizontal"
+        android:paddingBottom="15dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="15dp"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_info_outline_black_24dp"
+            android:tint="#737373"
+            android:contentDescription="@string/about_contact_us" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/info"
+            android:textColor="#737373"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            tools:context=".MainActivity">
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/selection_of_absorbers"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="28sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_marka"
+                        android:layout_width="match_parent"
+                        android:layout_height="@android:dimen/notification_large_icon_height"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#EEEEEE"
+                        android:spinnerMode="dialog"
+                        android:textSize="25sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_model"
+                        android:layout_width="match_parent"
+                        android:layout_height="@android:dimen/notification_large_icon_height"
+                        android:layout_marginBottom="5dp"
+                        android:background="#EEEEEE"
+                        android:spinnerMode="dialog"
+                        android:textSize="25sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_car"
+                        android:layout_width="match_parent"
+                        android:layout_height="@android:dimen/notification_large_icon_height"
+                        android:background="#EEEEEE"
+                        android:spinnerMode="dialog"
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/clear_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="5dp"
+                        android:background="@color/colorPrimary"
+                        android:padding="10dp"
+                        android:text="@string/clear"
+                        android:textColor="@color/cardview_light_background"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/app_name"
+                        app:srcCompat="@drawable/logo" />
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

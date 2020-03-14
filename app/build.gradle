@@ -6,29 +6,35 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "ua.kharkov.koni.konikharkov"
-        minSdkVersion 15
+        minSdkVersion 19
         //noinspection OldTargetApi
         targetSdkVersion 28
-        versionCode 6
-        versionName "2.4"
+        versionCode 7
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
-
-//greendao{
-  //  schemaVersion 1
-    //targetGenDir 'src/main/java'
-//}
 
 dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'com.android.support:support-vector-drawable:28.0.0'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -42,5 +48,8 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     testImplementation 'junit:junit:4.12'
     implementation 'org.jetbrains:annotations-java5:15.0'
-
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    //implementation 'com.facebook.fresco:fresco:1.1.0'
+    //annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    //implementation 'com.jakewharton:butterknife:10.1.0'
 }

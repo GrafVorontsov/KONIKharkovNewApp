@@ -10,9 +10,10 @@
     <string name="information_not_found">Информации по данному номеру детали не найдено.</string>
     <string name="open">Панель навигации открыта</string>
     <string name="close">Панель навигации закрыта</string>
-    <string name="info">Информация</string>
+    <string name="info">О приложении</string>
     <string name="main_page">Каталог</string>
     <string name="call_page">Звонок менеджеру</string>
+    <string name="manual_page">Руководство</string>
     <string name="title_call">Выберите, какой оператор вам удобнее</string>
     <string name="year">год</string>
     <string name="status">статус</string>
@@ -31,4 +32,25 @@
     <string name="numberIsCopied">скопирован</string>
     <string name="list">Список</string>
     <string name="PicAddressIsCopied">Адрес изображения скопирован</string>
+    <string name="login">Вход</string>
+    <string name="account">Аккаунт</string>
+    <string name="hint_email">Электронная почта</string>
+    <string name="hint_password">Пароль</string>
+    <string name="hint_name">Имя или название фирмы</string>
+    <string name="btn_login">Логин</string>
+    <string name="btn_register">Регистрация</string>
+    <string name="register">Регистрация</string>
+    <string name="btn_link_to_register">Нет аккаунта? Зарегистрируйтесь.</string>
+    <string name="btn_link_to_login">Есть аккаунт? Входите.</string>
+    <string name="welcome">Добро пожаловать</string>
+    <string name="btn_logout">Выход</string>
+    <string name="name">Имя</string>
+    <string name="your_price_level">Ваш уровень цен: %1$s</string>
+    <string name="title_activity_home">Каталог</string>
+    <string name="title_catalog">Каталог</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Заметки</string>
+    <string name="title_more">Ещё</string>
+    <string name="title_settings">Настройки</string>
+    <string name="user_logo">User logo</string>
 </resources>

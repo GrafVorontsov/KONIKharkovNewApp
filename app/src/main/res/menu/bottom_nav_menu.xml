@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:labelVisibilityMode="selected">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_catalog" />
+
+    <item
+        android:id="@+id/navigation_manual"
+        android:icon="@drawable/ic_book_open_page_variant_black_24dp"
+        android:title="@string/manual_page" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/outline_more_horiz_black_24dp"
+        android:title="@string/title_settings"/>
+
+</menu>

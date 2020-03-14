@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -28,7 +27,7 @@ public abstract class SearchMenuActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query){
-                MenuItemCompat.collapseActionView(searchMenuItem);
+                searchMenuItem.collapseActionView();
                 return false;
             }
             @Override

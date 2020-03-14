@@ -2,42 +2,62 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ua.kharkov.koni.konikharkov">
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
 
     <application
+
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:screenOrientation="sensor"
-        android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="sensor"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher"
+        android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute">
-
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="ua.kharkov.koni.konikharkov"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
         <activity
-            android:name=".MainActivity"
+            android:name=".activityes.Home"
+            android:theme="@style/AppTheme"
             android:screenOrientation="sensor">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.default_searchable"
-                android:value=".SearchActivity" />
+                android:value=".activityes.SearchActivity" />
         </activity>
         <activity
+            android:name=".activityes.DocumentationMainActivity"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".activityes.SearchActivity"
-            android:theme="@style/AppTheme"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -46,14 +66,18 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+
         <activity
             android:name=".activityes.ToastActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="sensor" />
-        <activity android:name=".activityes.AboutActivity"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activityes.PhoneActivity"
-            android:theme="@style/AppTheme"/>
+            android:screenOrientation="sensor"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activityes.AboutActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activityes.PhoneActivity"
+            android:theme="@style/AppTheme" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -61,6 +85,20 @@
         <activity
             android:name=".activityes.Favourites"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activityes.LoginActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activityes.SuccessActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activityes.RegisterActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
